@@ -24,7 +24,6 @@ class Auth(object):
         login = self.login
         password = self.password
         cookie_url = self.cookie_url
-
         cookie_url = requests.post(cookie_url, data= {'client_id': 'portal', 'redirect_url':'', 'response_type':'code', 'scope':'user', 'state': state,'login':login, 'password' :password}, headers={'Accept': 'application/json'})
         url = str(cookie_url.json()['url'])
         req = requests.get(url, allow_redirects=False)

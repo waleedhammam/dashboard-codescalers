@@ -1,0 +1,23 @@
+<h1>Dashboard</h1>
+<h3><i>Get Dashboard Data</i></h3>
+
+<h4><i>Overall status:</i></h4>
+<p>{{OverallStatus}}</p>
+
+<h4><i>Summary status :</i></h4>
+<p>{{StatusSummary}}</p>
+
+
+<h4><i>Detailed Status:</i></h4>
+<p><i>Enter nid no</i><p>
+<input #nid (keyup.enter)=" nid_no=nid.value"
+    (blur)="nid_no=nid.value">
+    <button (click)='getDetailedStatus()'>Get!</button>
+    <p>{{DetailedStatus}}</p>
+
+<h4><i>Run full healtcheck:</i></h4>
+<p><i>Enter nid no</i><p>
+<input #nid2 (keyup.enter)=" nid_no2=nid2.value"
+    (blur)="nid_no2=nid2.value">
+    <button (click)='getHealthRun()'>Get!</button>
+    <p>{{HealthCheck}}</p>
