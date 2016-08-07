@@ -50,8 +50,16 @@ body {
 }
 
 
+.state-EXPIRED{
+      width: 20px;
+      height: 10px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: darkorange;
+    }
 
-#error {
+.state-ERROR {
       width: 20px;
       height: 10px;
       -webkit-border-radius: 25px;
@@ -59,7 +67,16 @@ body {
       border-radius: 25px;
       background: red;
     }
-#ok {
+.state-WARNING {
+      width: 20px;
+      height: 10px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: orangered;
+    }
+
+.state-OK {
       width: 20px;
       height: 10px;
       -webkit-border-radius: 10px;
@@ -67,6 +84,8 @@ body {
       border-radius: 20px;
       background: seagreen;
     }
+
+
 
 /*
  * Main content

@@ -54,7 +54,7 @@ var DashComponent = (function () {
         core_1.Component({
             selector: 'my-dash',
             templateUrl: 'app/dash/templates/page.html',
-            providers: [dash_service_1.DashService, http_1.HTTP_PROVIDERS]
+            providers: [dash_service_1.DashService, http_1.HTTP_PROVIDERS],
         }), 
         __metadata('design:paramtypes', [dash_service_1.DashService, http_1.Http])
     ], DashComponent);

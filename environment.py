@@ -1,40 +1,17 @@
-""" SOME COMMENTS HERE """
-import requests
-from auth import Auth
+import requests, json
 
-class Environment(Auth):
-    """ SOME COMMENTS HERE """
-    def __init__(self, login, password, state_url, cookie_url, api_link, data):
-        """ SOME COMMENTS HERE """
-        super(Environment, self).__init__(login, password, state_url, cookie_url)
-        self.api_link = api_link
-        self.data = data
-        self._cookie = None
-    
-    @property
-    def cookie(self):
-        if not self._cookie:
-            self._cookie = self.get_cookie()
-        return self._cookie
-    
-    @cookie.setter
-    def cookie(self, val):
-        self._cookie = val
+class Environment:
+    def __init__(self, username, password, login_url):
+        self.username = username
+        self.password = password
+        self.login_url = login_url
+        self.session = self.authenticate()
 
-    def request(self, *args, **kwargs):
-            kwargs['Headers'] = kwargs.get('Headers', {})
-            for i in range(2):
-                kwargs['Headers']['Cookie'] = self.cookie
-                result = self.get_details(self, *args, **kwargs)
-                if result.status != 401:
-                    return result
-                else:
-                    self.cookie = None
-    
-    def get_details(self, *args, **kwargs):
-        api_url = self.api_link
-        if self.data:
-            result = requests.post(api_url, headers={'Cookie': self.cookie}, data={'nid': self.data})
-        else:
-            result = requests.get(api_url, headers={'Cookie': self.cookie})
-        return result.text
+    def authenticate(self):
+        session = requests.Session()
+        session.post(self.login_url, data={'name': self.username, 'secret':self.password})
+        return session
+
+    def get_details(self, api_link, data):
+        result = self.session.post(api_link, data={'nid': data})
+        return result.json()

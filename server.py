@@ -1,5 +1,4 @@
-""" SOME COMMENTS HERE """
-from flask import Flask, send_from_directory, render_template, Response, request
+from flask import Flask, send_from_directory, render_template, Response, request, jsonify
 from environment import Environment
 import json, os
 
@@ -9,82 +8,73 @@ app = Flask(__name__, template_folder='ClientApp')
 BASE_URL = os.path.abspath(os.path.dirname(__file__))
 CLIENT_APP_FOLDER = os.path.join(BASE_URL, "ClientApp")
 
-# This is required by zone.js as it need to access the
-# "main.js" file in the "ClientApp\app" folder which it
-# does by accessing "<your-site-path>/app/main.js"
 @app.route('/app/<path:filename>')
 def client_app_app_folder(filename):
     return send_from_directory(os.path.join(CLIENT_APP_FOLDER, "app"), filename)
 
-# Custom static data
 @app.route('/client-app/<path:filename>')
 def client_app_folder(filename):
     return send_from_directory(CLIENT_APP_FOLDER, filename)
 
-""""""
-
-global name, base_url, username, passwd, state_url, cookie_url, apis
+global apis, environment
 def init():
-    """ Extract config data """
-    global name, base_url, username, passwd, state_url, cookie_url, apis
+
+    global apis, environment
     with open('config.json') as json_data_file:
         data = json.load(json_data_file)
     env = data['env']
-    name = env['name']
-    base_url = env['url']
     username = env['login']
     passwd = env['password']
-    state_url = env['state_url']
-    cookie_url = env['cookie_url']
+    login_url = env['login_url']
     apis = env['apis']
 
+    environment = Environment(username, passwd, login_url)
+    
 init()
 
 
 """ Server API"""
 def helper(api, nid):
-    if api == 'getDetailedStatus':
-        api_link = apis[api] + str(nid)
-    else:
-        api_link = apis[api]
+    api_link = apis[api] + str(nid)
+    res = environment.get_details(api_link, nid)   
+    return res
+    
+def clean_detailed_status(detailed_status):
+    data = detailed_status['categories']
+    res_data = []
+    for category in data.keys():
+        value = data[category]
+        value['name'] = category
+        res_data.append(value)
+    return res_data
 
-    if api == "getHealthRun":
-        environment = Environment(username, passwd, state_url, cookie_url, api_link, nid)
-    else:
-        environment = Environment(username, passwd, state_url, cookie_url, api_link, '')
-
-    return environment.get_details()
-
-"""Server Functions"""
 
 @app.route("/")
 def main_page():
     return render_template("index.html")
 
-@app.route("/getDetailedStatus", methods=["GET", "POST"])
+@app.route("/getDetailedStatus")
 def getDetailedStatus():
-    """ SOME COMMENTS HERE """
     nid = request.args.get('nid_no')
-    return helper('getDetailedStatus', nid)
+    temp = helper('getDetailedStatus', 1)
+    res = clean_detailed_status(temp)
+    print res
+    return jsonify(res)
      
 @app.route("/getStatusSummary")
 def getStatusSummary():
-    """ SOME COMMENTS HERE """
-    return helper('getStatusSummary', '')
+    return jsonify(helper('getStatusSummary', '').values())
      
 @app.route("/getOverallStatus")
 def getOverallStatus():
-    """ SOME COMMENTS HERE """
-    return helper('getOverallStatus', '')
+    return jsonify(helper('getOverallStatus', ''))
      
 
-@app.route("/getHealthRun", methods=["GET", "POST"])
+@app.route("/getHealthRun")
 def getHealthRun():
-    """ SOME COMMENTS HERE """
     nid = request.args.get('nid_no')
-    return helper('getHealthRun', nid)
+    return jsonify(helper('getHealthRun', nid))
      
 
-""" SOME COMMENTS HERE """
 if __name__ == "__main__":
     app.run(threaded=True)

@@ -1,23 +1,126 @@
-<h1>Dashboard</h1>
-<h3><i>Get Dashboard Data</i></h3>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Custom styles for this template -->
+<link href="dash.css" rel="stylesheet">
 
-<h4><i>Overall status:</i></h4>
-<p>{{OverallStatus}}</p>
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
-<h4><i>Summary status :</i></h4>
-<p>{{StatusSummary}}</p>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 
-<h4><i>Detailed Status:</i></h4>
-<p><i>Enter nid no</i><p>
-<input #nid (keyup.enter)=" nid_no=nid.value"
-    (blur)="nid_no=nid.value">
-    <button (click)='getDetailedStatus()'>Get!</button>
-    <p>{{DetailedStatus}}</p>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
 
-<h4><i>Run full healtcheck:</i></h4>
-<p><i>Enter nid no</i><p>
-<input #nid2 (keyup.enter)=" nid_no2=nid2.value"
-    (blur)="nid_no2=nid2.value">
-    <button (click)='getHealthRun()'>Get!</button>
-    <p>{{HealthCheck}}</p>
+            <a class="navbar-brand" href="#">envs Dashboard
+        </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+
+        </div>
+    </div>
+</nav>
+<h2>....</h2>
+
+<div class="container-fluid">
+    <div class="row">
+
+    </div>
+</div>
+<div class="panel-group">
+    <!-------------------------------------------------------------------------this is an env unit------------------------------------------------------------------------------->
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <!--the env status -->
+            <!--<div [ng-switch]="OverallStatus.state">                                                                   
+        <div class="right" id="ok" *ng-switch-when='OK'></div>
+        <div class="right" id="error" *ng-switch-when='ERROR'></div>
+        </div>-->
+
+
+            <div *ngIf="OverallStatus" class="right state-{{OverallStatus.state}}" id="state-machine-1"></div>
+            <h4 class="panel-title">
+                <!--the env name item -->
+                <a (click)="isCollapsed = !isCollapsed">env 1</a>
+            </h4>
+        </div>
+        <!-- Machines of the env -->
+        <div id="collapse1" class="panel-collapse" [class.collapse]="isCollapsed" role="tabpanel" aria-labelledby="headingOne">
+
+            <div class="panel-body">
+                <!--single machine data -->
+                <div class="panel-heading" *ngFor="let machine of StatusSummary">
+                    <!-- machine status-->
+                    <div *ngIf="machine" id="machine-status" class="right state-{{machine.status}} "></div>
+
+                    <h4 class="panel-title ">
+                        <a data-toggle="collapse" href="#collapsech" style="display: inline;outline: 0;" (click)="isCollapsed1 = !isCollapsed1">Machine Name : {{machine.name}} 
+            gid = {{machine.gid}}
+            nid = {{machine.nid}}
+            level = {{machine.level}}
+                </a>
+                    </h4>
+                    <!--Detailed status-->
+
+                    <div class="panel-body">
+
+                        <div id="collapsech" class="panel-collapse" [class.collapse]="isCollapsed1">
+                            Placeholder!
+                            <!--node status-->
+                            <div class="panel-heading" *ngFor="let category of DetailedStatus">
+
+
+                                <h4 class="panel-title ">
+            
+                                    <div *ngIf="category" id="category-status" class="right state-{{category.status}}"></div>
+
+                                    <!-- needs key to show and value to itrate -->
+                                    <a data-toggle="collapse" href="#collapsend" style="display: inline; outline: 0;"  >
+                                        {{category.name}}
+            </a>
+
+                                </h4>
+                                <div class="panel-body">
+
+                                    <div id="collapsend" class="panel-collapse collapse">
+                                        <!-- cat status-->
+
+                                        <li class="list-group-item" *ngFor="let data_item of category.data">
+                                       <div *ngIf="data_item" id="data_item.status" class="right state-{{data_item.status}} "></div>
+                                            {{data_item.msg}} interval : {{data_item.interval}} last : {{data_item.last}}
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!----------------------------------------------------------------------the env unit ends here !------------------------------------------------------------------------>
+
+
+    <!-- the error env ends here !-->
+    <!-- Bootstrap core JavaScript 
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+
+
+
+
+    <!-- for loading data  we use 
+<p>Loads later: {{item.lateLoader}} <span ng-bind="{{item.lateLoader}}"></span><i ng-hide="item.lateLoader"  class="icon icon-refresh icon-spin">loading image i don't have</i></p>
+-->
