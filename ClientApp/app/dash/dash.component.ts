@@ -33,24 +33,24 @@ export class DashComponent implements OnInit {
   }
 
   getOverallStatus() {
-    this.dashService.getOverallStatus(response => this.OverallStatus = response.text());   
+    this.dashService.getOverallStatus(response => this.OverallStatus = response.json());   
   }
   getStatusSummary(){
-    this.dashService.getStatusSummary(response => this.StatusSummary = response.text());    
+    this.dashService.getStatusSummary(response => this.StatusSummary = response.json());    
   }
 
   getHealthRun(){
     this.http.request('http://127.0.0.1:5000/getHealthRun?nid_no=' + this.nid_no2)
               .debounceTime(400)
               .distinctUntilChanged()
-              .subscribe(response => this.HealthCheck = response.text());    
+              .subscribe(response => this.HealthCheck = response.json());    
 
   }
   getDetailedStatus(){
     this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid_no=' + this.nid_no)
               .debounceTime(400)
               .distinctUntilChanged()
-              .subscribe(response => this.DetailedStatus = response.text());   
+              .subscribe(response => this.DetailedStatus = response.json());   
   }
 
 }

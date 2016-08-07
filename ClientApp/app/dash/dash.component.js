@@ -30,25 +30,25 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.getOverallStatus = function () {
         var _this = this;
-        this.dashService.getOverallStatus(function (response) { return _this.OverallStatus = response.text(); });
+        this.dashService.getOverallStatus(function (response) { return _this.OverallStatus = response.json(); });
     };
     DashComponent.prototype.getStatusSummary = function () {
         var _this = this;
-        this.dashService.getStatusSummary(function (response) { return _this.StatusSummary = response.text(); });
+        this.dashService.getStatusSummary(function (response) { return _this.StatusSummary = response.json(); });
     };
     DashComponent.prototype.getHealthRun = function () {
         var _this = this;
         this.http.request('http://127.0.0.1:5000/getHealthRun?nid_no=' + this.nid_no2)
             .debounceTime(400)
             .distinctUntilChanged()
-            .subscribe(function (response) { return _this.HealthCheck = response.text(); });
+            .subscribe(function (response) { return _this.HealthCheck = response.json(); });
     };
     DashComponent.prototype.getDetailedStatus = function () {
         var _this = this;
         this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid_no=' + this.nid_no)
             .debounceTime(400)
             .distinctUntilChanged()
-            .subscribe(function (response) { return _this.DetailedStatus = response.text(); });
+            .subscribe(function (response) { return _this.DetailedStatus = response.json(); });
     };
     DashComponent = __decorate([
         core_1.Component({
