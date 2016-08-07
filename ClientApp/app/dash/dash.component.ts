@@ -44,14 +44,14 @@ export class DashComponent implements OnInit {
   }
 
   getHealthRun(){
-    this.http.request('http://127.0.0.1:5000/getHealthRun?nid_no=' + this.nid_no2)
+    this.http.request('http://127.0.0.1:5000/getHealthRun?nid=' + this.nid_no2)
               .debounceTime(400)
               .distinctUntilChanged()
               .subscribe(response => this.HealthCheck = response.json());    
 
   }
   getDetailedStatus(){
-    this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid_no=' + this.nid_no)
+    this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid=' + 2)
               .debounceTime(400)
               .distinctUntilChanged()
               .subscribe(response => this.DetailedStatus = response.json()); 

@@ -73,25 +73,23 @@
 
                     <div class="panel-body">
 
-                        <div id="collapsech" class="panel-collapse" [class.collapse]="isCollapsed1">
+                        <div id="collapsech" class="accordion-body collapse" [class.collapse]="isCollapsed1">
                             <!--node status-->
-
                             <div class="panel-heading" *ngFor="let category of DetailedStatus">
-
 
                                 <h4 class="panel-title ">
             
                                     <div id="category-status" class="right state-{{category.status}}"></div>
 
                                     <!-- needs key to show and value to itrate -->
-                                    <a data-toggle="collapse" (click)="isCollapsed2 = !isCollapsed2" href="#collapsend" style="display: inline; outline: 0;"  >
+                                    <a data-toggle="collapse" (click)="category.name9  = !category.name9" href="#collapsend" style="display: inline; outline: 0;"  >
                                         {{category.name}}
             </a>
 
                                 </h4>
                                 <div class="panel-body">
 
-                                    <div id="collapsend" [class.collapse]="isCollapsed2"  class="panel-collapse collapse">
+                                    <div id="collapsend" [class.collapse]="category.name9"  class="panel-collapse collapse">
                                         <!-- cat status-->
 
                                         <li class="list-group-item" *ngFor="let data_item of category.data">
@@ -108,7 +106,7 @@
             </div>
         </div>
     </div>
-    <!----------------------------------------------------------------------the env unit ends here !------------------------------------------------------------------------>
+
 
 
     <!-- the error env ends here !-->

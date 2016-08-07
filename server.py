@@ -55,8 +55,8 @@ def main_page():
 
 @app.route("/getDetailedStatus")
 def getDetailedStatus():
-    nid = request.args.get('nid_no')
-    temp = helper('getDetailedStatus', 1)
+    nid = request.args.get('nid')
+    temp = helper('getDetailedStatus', nid)
     res = clean_detailed_status(temp)
     return jsonify(res)
      
