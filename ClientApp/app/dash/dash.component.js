@@ -22,11 +22,13 @@ var DashComponent = (function () {
         this.id = setInterval(function () {
             _this.getOverallStatus();
             _this.getStatusSummary();
+            _this.getDetailedStatus();
         }, 10000);
     }
     DashComponent.prototype.ngOnInit = function () {
         this.getOverallStatus();
         this.getStatusSummary();
+        this.getDetailedStatus();
     };
     DashComponent.prototype.getOverallStatus = function () {
         var _this = this;

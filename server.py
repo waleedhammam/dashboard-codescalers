@@ -58,7 +58,6 @@ def getDetailedStatus():
     nid = request.args.get('nid_no')
     temp = helper('getDetailedStatus', 1)
     res = clean_detailed_status(temp)
-    print res
     return jsonify(res)
      
 @app.route("/getStatusSummary")

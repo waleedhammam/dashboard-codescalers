@@ -37,7 +37,7 @@
     </div>
 </div>
 <div class="panel-group">
-    <!-------------------------------------------------------------------------this is an env unit------------------------------------------------------------------------------->
+
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
             <!--the env status -->
@@ -74,24 +74,24 @@
                     <div class="panel-body">
 
                         <div id="collapsech" class="panel-collapse" [class.collapse]="isCollapsed1">
-                            Placeholder!
                             <!--node status-->
+
                             <div class="panel-heading" *ngFor="let category of DetailedStatus">
 
 
                                 <h4 class="panel-title ">
             
-                                    <div *ngIf="category" id="category-status" class="right state-{{category.status}}"></div>
+                                    <div id="category-status" class="right state-{{category.status}}"></div>
 
                                     <!-- needs key to show and value to itrate -->
-                                    <a data-toggle="collapse" href="#collapsend" style="display: inline; outline: 0;"  >
+                                    <a data-toggle="collapse" (click)="isCollapsed2 = !isCollapsed2" href="#collapsend" style="display: inline; outline: 0;"  >
                                         {{category.name}}
             </a>
 
                                 </h4>
                                 <div class="panel-body">
 
-                                    <div id="collapsend" class="panel-collapse collapse">
+                                    <div id="collapsend" [class.collapse]="isCollapsed2"  class="panel-collapse collapse">
                                         <!-- cat status-->
 
                                         <li class="list-group-item" *ngFor="let data_item of category.data">

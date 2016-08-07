@@ -23,15 +23,15 @@ export class DashComponent implements OnInit {
   this.id = setInterval(() => {
       this.getOverallStatus();
       this.getStatusSummary();
+      this.getDetailedStatus();
     }, 10000);
     
   }
   
   ngOnInit(){
-    
     this.getOverallStatus();
     this.getStatusSummary();
-        
+    this.getDetailedStatus();
   }
 
   getOverallStatus() {
