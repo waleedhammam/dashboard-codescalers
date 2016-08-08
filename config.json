@@ -4,12 +4,12 @@
         "url":"",
         "login":"",
         "password":"",
-        "login_url":"",
+        "login_url":"https://du-conv-3.demo.greenitglobe.com/restmachine/system/usermanager/authenticate",
         "apis":{
-        "getDetailedStatus":"",
-        "getOverallStatus":"",
-        "getStatusSummary":"",
-        "getHealthRun":""
+        "getDetailedStatus":"https://du-conv-3.demo.greenitglobe.com/restmachine/system/health/getDetailedStatus?nid=",
+        "getOverallStatus":"https://du-conv-3.demo.greenitglobe.com/restmachine/system/health/getOverallStatus",
+        "getStatusSummary":"https://du-conv-3.demo.greenitglobe.com/restmachine/system/health/getStatusSummary",
+        "getHealthRun":"https://du-conv-3.demo.greenitglobe.com/restmachine/system/health/run"
         }
     }
 }
