@@ -4,7 +4,7 @@
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+  padding-top: 100px;
 }
 
 
@@ -73,10 +73,21 @@ body {
       -webkit-border-radius: 25px;
       -moz-border-radius: 25px;
       border-radius: 25px;
-      background: orangered;
+      background: #FFDD33;
     }
 
-.state-OK {
+
+  .state-DEGRADED {
+      width: 20px;
+      height: 10px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: orangered;
+      ;
+    }
+
+.state-OK  {
       width: 20px;
       height: 10px;
       -webkit-border-radius: 10px;
@@ -84,7 +95,14 @@ body {
       border-radius: 20px;
       background: seagreen;
     }
-
+.state-RUNNING {
+      width: 20px;
+      height: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 20px;
+      background: seagreen;
+    }
 
 
 /*

@@ -7,17 +7,17 @@ import { DashComponent }  from './dash.component';
 export class DashService {
   constructor(private http:Http) {}
   result;
-  getStatusSummary (callback) {
+  getStatusSummary (environment,callback) {
 
-    let dashUrl = 'http://127.0.0.1:5000/getStatusSummary';
+    let dashUrl = '/getStatusSummary?environment=' + environment;
     this.http.request(dashUrl)
               .debounceTime(400)
               .distinctUntilChanged()
               .subscribe(callback);
   }
-  getOverallStatus(callback) {
+  getOverallStatus(environment, callback) {
 
-    let dashUrl = 'http://127.0.0.1:5000/getOverallStatus';
+    let dashUrl = '/getOverallStatus?environment=' + environment;
     this.http.request(dashUrl)
               .debounceTime(400)
               .distinctUntilChanged()
@@ -26,7 +26,7 @@ export class DashService {
   }
   getDetailedStatus(callback) {
 
-    let dashUrl = 'http://127.0.0.1:5000/getDetailedStatus';
+    let dashUrl = '/getDetailedStatus';
     
     this.http.request(dashUrl)
               .debounceTime(400)
@@ -36,7 +36,17 @@ export class DashService {
   }
   getHealthRun(callback) {
 
-    let dashUrl = 'http://127.0.0.1:5000/getHealthRun';
+    let dashUrl = '/getHealthRun';
+    
+    this.http.request(dashUrl)
+              .debounceTime(400)
+              .distinctUntilChanged()
+              .subscribe(callback);
+
+  }
+  getEnvironments(callback) {
+
+    let dashUrl = '/environments';
     
     this.http.request(dashUrl)
               .debounceTime(400)

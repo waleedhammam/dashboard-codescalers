@@ -1,10 +1,11 @@
 import requests, json
 
 class Environment:
-    def __init__(self, username, password, login_url):
+    def __init__(self, username, password, login_url, url):
         self.username = username
         self.password = password
         self.login_url = login_url
+        self.url = url
         self.session = self.authenticate()
 
     def authenticate(self):
@@ -13,5 +14,5 @@ class Environment:
         return session
 
     def get_details(self, api_link, data):
-        result = self.session.post(api_link, data={'nid': data})
+        result = self.session.post(self.url + api_link, data=data)
         return result.json()

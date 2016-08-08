@@ -16,27 +16,33 @@ def client_app_app_folder(filename):
 def client_app_folder(filename):
     return send_from_directory(CLIENT_APP_FOLDER, filename)
 
-global apis, environment
+apis = None
+environments = {}
 def init():
 
-    global apis, environment
+    global apis, environments
     with open('config.json') as json_data_file:
         data = json.load(json_data_file)
-    env = data['env']
-    username = env['login']
-    passwd = env['password']
-    login_url = env['login_url']
-    apis = env['apis']
+        envs = data['envs']
+        env_list = []
+        for env in envs :
+            env_list.append(env)
+            username = env['login']
+            passwd = env['password']
+            login_url = env['login_url']
+            url = env['url']
 
-    environment = Environment(username, passwd, login_url)
+            environments[env['name']] = Environment(username, passwd, login_url, url)
+        apis = data['apis']
+        
     
 init()
 
 
 """ Server API"""
-def helper(api, nid):
-    api_link = apis[api] + str(nid)
-    res = environment.get_details(api_link, nid)   
+def helper(api, environment_name, data={}):
+    api_link = apis[api]
+    res = environments[environment_name].get_details(api_link, data)   
     return res
     
 def clean_detailed_status(detailed_status):
@@ -48,6 +54,23 @@ def clean_detailed_status(detailed_status):
         res_data.append(value)
     return res_data
 
+def get_machines_id():
+    status_summary = helper('getStatusSummary', '').values()
+    ids = map(lambda machine : machine['nid'], status_summary)
+    return ids    
+
+@app.route("/allDetails")
+def get_all_machines_details():
+    ids = get_machines_id()
+    all_details = dict()
+    for i in ids :
+        machine_details = helper('getDetailedStatus', i)
+        machine_details = clean_detailed_status(machine_details)
+        all_details[i] = machine_details
+    return jsonify(all_details)
+
+#sends the environments to the client 
+
 
 @app.route("/")
 def main_page():
@@ -55,24 +78,41 @@ def main_page():
 
 @app.route("/getDetailedStatus")
 def getDetailedStatus():
+    environment = request.args.get('environment')
     nid = request.args.get('nid')
-    temp = helper('getDetailedStatus', nid)
+    temp = helper('getDetailedStatus',environment, {'nid':nid})
     res = clean_detailed_status(temp)
     return jsonify(res)
      
 @app.route("/getStatusSummary")
 def getStatusSummary():
-    return jsonify(helper('getStatusSummary', '').values())
+    environment = request.args.get('environment')
+    return jsonify(helper('getStatusSummary', environment).values())
      
 @app.route("/getOverallStatus")
 def getOverallStatus():
-    return jsonify(helper('getOverallStatus', ''))
-     
+    environment = request.args.get('environment')
+    temp = helper('getOverallStatus', environment)
+    return jsonify(temp)
+
+
+@app.route("/environments")
+def send_environments():
+    envs = environments
+    env_list = {}
+    for env in envs.keys():
+        env_item = helper('getOverallStatus', env)
+        env_item['name'] = env
+        env_item['expanded'] = False
+        env_item['status_summary'] = []
+        env_list[env] = env_item
+    return jsonify(env_list)
 
 @app.route("/getHealthRun")
 def getHealthRun():
-    nid = request.args.get('nid_no')
-    return jsonify(helper('getHealthRun', nid))
+    nid = request.args.get('nid')
+    environment = request.args.get('environment')
+    return jsonify(helper('getHealthRun', environment, {'nid': nid}))
      
 
 if __name__ == "__main__":

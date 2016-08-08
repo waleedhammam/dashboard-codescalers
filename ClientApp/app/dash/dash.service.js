@@ -14,29 +14,36 @@ var DashService = (function () {
     function DashService(http) {
         this.http = http;
     }
-    DashService.prototype.getStatusSummary = function (callback) {
-        var dashUrl = 'http://127.0.0.1:5000/getStatusSummary';
+    DashService.prototype.getStatusSummary = function (environment, callback) {
+        var dashUrl = '/getStatusSummary?environment=' + environment;
         this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
             .subscribe(callback);
     };
-    DashService.prototype.getOverallStatus = function (callback) {
-        var dashUrl = 'http://127.0.0.1:5000/getOverallStatus';
+    DashService.prototype.getOverallStatus = function (environment, callback) {
+        var dashUrl = '/getOverallStatus?environment=' + environment;
         this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
             .subscribe(callback);
     };
     DashService.prototype.getDetailedStatus = function (callback) {
-        var dashUrl = 'http://127.0.0.1:5000/getDetailedStatus';
+        var dashUrl = '/getDetailedStatus';
         this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
             .subscribe(callback);
     };
     DashService.prototype.getHealthRun = function (callback) {
-        var dashUrl = 'http://127.0.0.1:5000/getHealthRun';
+        var dashUrl = '/getHealthRun';
+        this.http.request(dashUrl)
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(callback);
+    };
+    DashService.prototype.getEnvironments = function (callback) {
+        var dashUrl = '/environments';
         this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
