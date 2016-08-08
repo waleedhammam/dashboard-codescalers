@@ -1,0 +1,15 @@
+{
+    "env":{
+        "name":"",
+        "url":"",
+        "login":"",
+        "password":"",
+        "login_url":"",
+        "apis":{
+        "getDetailedStatus":"",
+        "getOverallStatus":"",
+        "getStatusSummary":"",
+        "getHealthRun":""
+        }
+    }
+}
