@@ -22,11 +22,13 @@ var DashComponent = (function () {
         this.id = setInterval(function () {
             _this.getOverallStatus();
             _this.getStatusSummary();
+            _this.getDetailedStatus();
         }, 10000);
     }
     DashComponent.prototype.ngOnInit = function () {
         this.getOverallStatus();
         this.getStatusSummary();
+        this.getDetailedStatus();
     };
     DashComponent.prototype.getOverallStatus = function () {
         var _this = this;
@@ -38,14 +40,14 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.getHealthRun = function () {
         var _this = this;
-        this.http.request('http://127.0.0.1:5000/getHealthRun?nid_no=' + this.nid_no2)
+        this.http.request('http://127.0.0.1:5000/getHealthRun?nid=' + this.nid_no2)
             .debounceTime(400)
             .distinctUntilChanged()
             .subscribe(function (response) { return _this.HealthCheck = response.json(); });
     };
     DashComponent.prototype.getDetailedStatus = function () {
         var _this = this;
-        this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid_no=' + this.nid_no)
+        this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid=' + 2)
             .debounceTime(400)
             .distinctUntilChanged()
             .subscribe(function (response) { return _this.DetailedStatus = response.json(); });
