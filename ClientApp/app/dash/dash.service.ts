@@ -24,9 +24,9 @@ export class DashService {
               .subscribe(callback);
 
   }
-  getDetailedStatus(callback) {
+  getDetailedStatus(envionment, nid, callback) {
 
-    let dashUrl = '/getDetailedStatus';
+    let dashUrl = '/getDetailedStatus?environment='+ envionment + '&nid=' + nid;
     
     this.http.request(dashUrl)
               .debounceTime(400)

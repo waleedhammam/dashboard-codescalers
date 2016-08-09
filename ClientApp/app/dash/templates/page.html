@@ -37,47 +37,86 @@
 
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne" *ngFor="let env of Environments2">
-            
+
             <div class="right state-{{env.state}}" id="state-machine-1"></div>
             <h4 class="panel-title">
                 <!--the env name item -->
-                
-                <a (click)="env.expanded = !env.expanded">{{env.name}}</a>
+
+                <a (click)="env.expanded = !env.expanded">{{env.name}} </a>
             </h4>
-         <div id="collapse1" class="panel-collapse" [class.collapse]="env.expanded" role="tabpanel" aria-labelledby="headingOne">
+            <div id="collapse1" class="panel-collapse" [class.collapse]="!env.expanded" role="tabpanel" aria-labelledby="headingOne">
 
-            <div class="panel-body">
-                <!--single machine data -->
-                <div *ngIf="env.summary">
-                <div class="panel-heading" *ngFor="let machine of env.summary">
-                    <!-- machine status-->
-                    <div *ngIf="machine" id="machine-status" class="right state-{{machine.status}} "></div>
+                <div class="panel-body">
+                    <!--single machine data -->
+                    <div *ngIf="env.summary">
+                        <div class="panel-heading" *ngFor="let machine of env.summary">
+                            <!-- machine status-->
+                            <div *ngIf="machine" id="machine-status" class="right state-{{machine.status}} "></div>
 
-                    <h4 class="panel-title ">
-                        <a data-toggle="collapse" href="#collapsech" style="display: inline;outline: 0;" (click)="isCollapsed1 = !isCollapsed1">Machine Name : {{machine.name}} 
+                            <h4 class="panel-title ">
+                                <a data-toggle="collapse" href="#collapsech" style="display: inline;outline: 0;" (click)="machine.expanded = !machine.expanded">Machine Name : {{machine.name}} 
+            <!--{{nid=}} = {{machine.nid}}--> 
             gid = {{machine.gid}}
             nid = {{machine.nid}}
             level = {{machine.level}}
+            expanded = {{machine.expanded}}
                 </a>
-                    </h4>
-        <!-- Machines of the env -->
+                            </h4>
+                            <div class="panel-body">
+
+                                <div id="collapsech" class="accordion-body" [class.collapse]="!machine.expanded">
+                                    <!--node status-->
+                                    <div class="panel-heading" *ngFor="let category of machine.details">
+
+                                        <h4 class="panel-title ">
+
+                                            <div id="category-status" class="right state-{{category.status}}"></div>
+
+                                            <!-- needs key to show and value to itrate -->
+                                            <a data-toggle="collapse" (click)="category.expanded  = !category.expanded" href="#collapsend" style="display: inline; outline: 0;">
+                                    {{category.name}}
+        </a>
+
+                                        </h4>
+                                        <div class="panel-body">
+
+                                            <div id="collapsend" [class.collapse]="!category.expanded" class="panel-collapse">
+                                                <!-- cat status-->
+
+                                                <li class="list-group-item" *ngFor="let data_item of category.data">
+                                                    <div *ngIf="data_item" id="data_item.status" class="right state-{{data_item.status}} "></div>
+                                                    {{data_item.msg}} interval : {{data_item.interval}} last : {{data_item.last}}
+                                                </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Machines of the env -->
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
-            
-    </div>
+            </div>
+
+            <!-- Machines of the env -->
         </div>
+    </div>
+</div>
 
 
 
-    <!-- the error env ends here !-->
-    <!-- Bootstrap core JavaScript 
+<!-- the error env ends here !-->
+<!-- Bootstrap core JavaScript 
 ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 
 
 
 
-    <!-- for loading data  we use 
+<!-- for loading data  we use 
 <p>Loads later: {{item.lateLoader}} <span ng-bind="{{item.lateLoader}}"></span><i ng-hide="item.lateLoader"  class="icon icon-refresh icon-spin">loading image i don't have</i></p>
 -->

@@ -42,6 +42,9 @@ init()
 """ Server API"""
 def helper(api, environment_name, data={}):
     api_link = apis[api]
+    env = environment_name
+    d = data
+
     res = environments[environment_name].get_details(api_link, data)   
     return res
     
@@ -78,6 +81,7 @@ def main_page():
 
 @app.route("/getDetailedStatus")
 def getDetailedStatus():
+    #import pudb;pu.db
     environment = request.args.get('environment')
     nid = request.args.get('nid')
     temp = helper('getDetailedStatus',environment, {'nid':nid})
@@ -86,8 +90,10 @@ def getDetailedStatus():
      
 @app.route("/getStatusSummary")
 def getStatusSummary():
+    # import pudb;pu.db
     environment = request.args.get('environment')
-    return jsonify(helper('getStatusSummary', environment).values())
+    machines = helper('getStatusSummary', environment).values()
+    return jsonify(machines)
      
 @app.route("/getOverallStatus")
 def getOverallStatus():
@@ -103,7 +109,6 @@ def send_environments():
     for env in envs.keys():
         env_item = helper('getOverallStatus', env)
         env_item['name'] = env
-        env_item['expanded'] = False
         env_item['status_summary'] = []
         env_list[env] = env_item
     return jsonify(env_list)
@@ -114,6 +119,10 @@ def getHealthRun():
     environment = request.args.get('environment')
     return jsonify(helper('getHealthRun', environment, {'nid': nid}))
      
-
 if __name__ == "__main__":
+    import subprocess
+    process = subprocess.Popen(["bash", "-c", 
+    """cd ClientApp;inotifywait -mr -e CLOSE_WRITE . 2> /dev/null | grep --line-buffered -E '\.ts$' | while read x ; do echo -n "Running tsc for $x: "; tsc; echo Done; done"""])
     app.run(threaded=True)
+    process.terminate()
+    process.kill()

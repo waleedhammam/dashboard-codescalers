@@ -10,14 +10,13 @@ import { DashService } from './dash.service';
 })
 
 export class DashComponent implements OnInit {
-  nid_no = '';
-  nid_no2 = '';
+  nid = '';
   Environments;
   Environments2;
   
   OverallStatus: Object;
   StatusSummary: Object;
-  // DetailedStatus;
+  DetailedStatus;
   // HealthCheck;
   count = 0;
   id;
@@ -30,6 +29,7 @@ export class DashComponent implements OnInit {
     this.getEnvironments();
 
     this.id = setInterval(() => {
+    // this.getEnvironments();
 
       // for (let env in this.Environments) {
       //  let environment =  this.getOverallStatus(env);
@@ -40,11 +40,11 @@ export class DashComponent implements OnInit {
       // this.getDetailedStatus();
       // this.getEnvironments();
       for (let env in this.Environments){
-        if(this.Environments[env]['expanded'] == false){
+        if(this.Environments[env]['expanded'] == true){
           this.getStatusSummary(env);
         }
       }
-    }, 1000);
+    }, 5000);
   
     // this.getOverallStatus();
     // this.getStatusSummary();
@@ -52,11 +52,32 @@ export class DashComponent implements OnInit {
   }
 
   getOverallStatus(environment) {
-    this.dashService.getOverallStatus(environment, response => this.Environments[environment] = response.json());   
+    this.dashService.getOverallStatus(environment, response => {
+      let expanded = this.Environments[environment].expanded 
+      this.Environments[environment] = response.json()
+      this.Environments[environment].expanded = expanded
+    });   
   }
 
   getStatusSummary(environment){
-    this.dashService.getStatusSummary(environment, response => this.Environments[environment].summary = response.json());
+    this.dashService.getStatusSummary(environment, response => {
+      let env = this.Environments[environment]
+      let expanded = env.summary?env.summary.map(m => m.expanded):[];
+      let details = env.summary?env.summary.map(m => m.details):[];
+      let summary = response.json()
+
+      for (let i in expanded) {
+          summary[i].expanded = expanded[i]
+          summary[i].details = details[i]
+      }
+      for(let machine in summary){
+         if (expanded[machine]){
+          this.getDetailedStatus(environment,summary[machine])
+         }
+
+      }
+      env.summary = summary
+    });
     
   }
 
@@ -67,17 +88,27 @@ export class DashComponent implements OnInit {
   //             .subscribe(response => this.HealthCheck = response.json());    
 
   // // }
-  // getDetailedStatus(){
-  //   this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid=' + 2)
-  //             .debounceTime(400)
-  //             .distinctUntilChanged()
-  //             .subscribe(response => this.DetailedStatus = response.json()); 
+
+  getDetailedStatus(environment, machine){
+     this.dashService.getDetailedStatus(environment, machine.nid, response => {
+
+        //let env = this.Environments[environment]
+        let expanded = machine.details?machine.details.map(m => m.expanded):[];
+        machine.details = response.json();
+
+      for (let i in expanded) {
+          machine.details[i].expanded = expanded[i]
+      }
+      }); 
+    
   
-  // }
+  }
   getEnvironments(){
     this.dashService.getEnvironments(response => {
       this.Environments = response.json();
+      if(! this.Environments2){
       this.Environments2 = Object.keys(this.Environments).map(name => this.Environments[name]);
+      }
     });
   }
 }

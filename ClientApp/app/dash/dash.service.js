@@ -28,8 +28,8 @@ var DashService = (function () {
             .distinctUntilChanged()
             .subscribe(callback);
     };
-    DashService.prototype.getDetailedStatus = function (callback) {
-        var dashUrl = '/getDetailedStatus';
+    DashService.prototype.getDetailedStatus = function (envionment, nid, callback) {
+        var dashUrl = '/getDetailedStatus?environment=' + envionment + '&nid=' + nid;
         this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()

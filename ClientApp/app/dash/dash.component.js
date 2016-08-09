@@ -15,9 +15,7 @@ var DashComponent = (function () {
     function DashComponent(dashService, http) {
         this.dashService = dashService;
         this.http = http;
-        this.nid_no = '';
-        this.nid_no2 = '';
-        // DetailedStatus;
+        this.nid = '';
         // HealthCheck;
         this.count = 0;
     }
@@ -25,6 +23,7 @@ var DashComponent = (function () {
         var _this = this;
         this.getEnvironments();
         this.id = setInterval(function () {
+            // this.getEnvironments();
             // for (let env in this.Environments) {
             //  let environment =  this.getOverallStatus(env);
             //  environment['name'] = env;
@@ -34,22 +33,41 @@ var DashComponent = (function () {
             // this.getDetailedStatus();
             // this.getEnvironments();
             for (var env in _this.Environments) {
-                if (_this.Environments[env]['expanded'] == false) {
+                if (_this.Environments[env]['expanded'] == true) {
                     _this.getStatusSummary(env);
                 }
             }
-        }, 1000);
+        }, 5000);
         // this.getOverallStatus();
         // this.getStatusSummary();
         // this.getDetailedStatus();
     };
     DashComponent.prototype.getOverallStatus = function (environment) {
         var _this = this;
-        this.dashService.getOverallStatus(environment, function (response) { return _this.Environments[environment] = response.json(); });
+        this.dashService.getOverallStatus(environment, function (response) {
+            var expanded = _this.Environments[environment].expanded;
+            _this.Environments[environment] = response.json();
+            _this.Environments[environment].expanded = expanded;
+        });
     };
     DashComponent.prototype.getStatusSummary = function (environment) {
         var _this = this;
-        this.dashService.getStatusSummary(environment, function (response) { return _this.Environments[environment].summary = response.json(); });
+        this.dashService.getStatusSummary(environment, function (response) {
+            var env = _this.Environments[environment];
+            var expanded = env.summary ? env.summary.map(function (m) { return m.expanded; }) : [];
+            var details = env.summary ? env.summary.map(function (m) { return m.details; }) : [];
+            var summary = response.json();
+            for (var i in expanded) {
+                summary[i].expanded = expanded[i];
+                summary[i].details = details[i];
+            }
+            for (var machine in summary) {
+                if (expanded[machine]) {
+                    _this.getDetailedStatus(environment, summary[machine]);
+                }
+            }
+            env.summary = summary;
+        });
     };
     // getHealthRun(){
     //   this.http.request('http://127.0.0.1:5000/getHealthRun?nid=' + this.nid_no2)
@@ -57,17 +75,23 @@ var DashComponent = (function () {
     //             .distinctUntilChanged()
     //             .subscribe(response => this.HealthCheck = response.json());    
     // // }
-    // getDetailedStatus(){
-    //   this.http.request('http://127.0.0.1:5000/getDetailedStatus?nid=' + 2)
-    //             .debounceTime(400)
-    //             .distinctUntilChanged()
-    //             .subscribe(response => this.DetailedStatus = response.json()); 
-    // }
+    DashComponent.prototype.getDetailedStatus = function (environment, machine) {
+        this.dashService.getDetailedStatus(environment, machine.nid, function (response) {
+            //let env = this.Environments[environment]
+            var expanded = machine.details ? machine.details.map(function (m) { return m.expanded; }) : [];
+            machine.details = response.json();
+            for (var i in expanded) {
+                machine.details[i].expanded = expanded[i];
+            }
+        });
+    };
     DashComponent.prototype.getEnvironments = function () {
         var _this = this;
         this.dashService.getEnvironments(function (response) {
             _this.Environments = response.json();
-            _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
+            if (!_this.Environments2) {
+                _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
+            }
         });
     };
     DashComponent = __decorate([
