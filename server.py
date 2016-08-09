@@ -121,8 +121,10 @@ def getHealthRun():
      
 if __name__ == "__main__":
     import subprocess
+    from time import sleep
     process = subprocess.Popen(["bash", "-c", 
-    """cd ClientApp;inotifywait -mr -e CLOSE_WRITE . 2> /dev/null | grep --line-buffered -E '\.ts$' | while read x ; do echo -n "Running tsc for $x: "; tsc; echo Done; done"""])
+    """cd ClientApp; tsc -w"""])
     app.run(threaded=True)
     process.terminate()
+    sleep(1)
     process.kill()

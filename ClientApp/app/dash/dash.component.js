@@ -37,7 +37,7 @@ var DashComponent = (function () {
                     _this.getStatusSummary(env);
                 }
             }
-        }, 5000);
+        }, 1000);
         // this.getOverallStatus();
         // this.getStatusSummary();
         // this.getDetailedStatus();

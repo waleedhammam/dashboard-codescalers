@@ -44,7 +44,7 @@ export class DashComponent implements OnInit {
           this.getStatusSummary(env);
         }
       }
-    }, 5000);
+    }, 1000);
   
     // this.getOverallStatus();
     // this.getStatusSummary();
@@ -99,7 +99,7 @@ export class DashComponent implements OnInit {
       for (let i in expanded) {
           machine.details[i].expanded = expanded[i]
       }
-      }); 
+      });    
     
   
   }
