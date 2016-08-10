@@ -1,8 +1,0 @@
-1- Make collapsors off by default
-2- now program respond to one machine so needed request state of all machines
-3- refresh data in sameplace without closing collapsors
-4- Make app ready for another environments by editing the conf file
-5- cleaning & performance optimizations
-6- Error handeling.
-7- UI improvments
-8- Machine Status

@@ -35,13 +35,6 @@ var DashService = (function () {
             .distinctUntilChanged()
             .subscribe(callback);
     };
-    DashService.prototype.getHealthRun = function (callback) {
-        var dashUrl = '/getHealthRun';
-        this.http.request(dashUrl)
-            .debounceTime(400)
-            .distinctUntilChanged()
-            .subscribe(callback);
-    };
     DashService.prototype.getEnvironments = function (callback) {
         var dashUrl = '/environments';
         this.http.request(dashUrl)

@@ -12,43 +12,57 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var dash_service_1 = require('./dash.service');
 var DashComponent = (function () {
-    function DashComponent(dashService, http) {
+    function DashComponent(dashService) {
         this.dashService = dashService;
-        this.http = http;
-        this.nid = '';
-        // HealthCheck;
-        this.count = 0;
     }
-    DashComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.getEnvironments();
-        this.id = setInterval(function () {
-            // this.getEnvironments();
-            // for (let env in this.Environments) {
-            //  let environment =  this.getOverallStatus(env);
-            //  environment['name'] = env;
-            //  this.Environments
-            // }
-            // this.getStatusSummary();
-            // this.getDetailedStatus();
-            // this.getEnvironments();
-            for (var env in _this.Environments) {
-                if (_this.Environments[env]['expanded'] == true) {
-                    _this.getStatusSummary(env);
-                }
+    DashComponent.prototype.get_data = function (callback) {
+        for (var env in this.Environments) {
+            if (this.Environments[env]['expanded'] == true) {
+                this.getStatusSummary(env);
             }
-        }, 1000);
-        // this.getOverallStatus();
-        // this.getStatusSummary();
-        // this.getDetailedStatus();
+        }
+        setTimeout(function () {
+            callback();
+        }, 1500);
     };
-    DashComponent.prototype.getOverallStatus = function (environment) {
+    DashComponent.prototype.call = function () {
         var _this = this;
-        this.dashService.getOverallStatus(environment, function (response) {
-            var expanded = _this.Environments[environment].expanded;
-            _this.Environments[environment] = response.json();
-            _this.Environments[environment].expanded = expanded;
+        setTimeout(function () { return _this.get_data(_this.call.bind(_this)); }, 1500);
+    };
+    DashComponent.prototype.ngOnInit = function () {
+        this.getEnvironments();
+        this.getOverallStatus(this.callback.bind(this));
+        this.get_data(this.call.bind(this));
+    };
+    DashComponent.prototype.getEnvironments = function () {
+        var _this = this;
+        this.dashService.getEnvironments(function (response) {
+            _this.Environments = response.json();
+            if (!_this.Environments2) {
+                _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
+            }
         });
+    };
+    DashComponent.prototype.getOverallStatus = function (callback) {
+        var _this = this;
+        var _loop_1 = function(env) {
+            this_1.dashService.getOverallStatus(env, function (response) {
+                var expanded = _this.Environments[env].expanded;
+                _this.Environments[env].status_summary = response.json();
+                _this.Environments[env].expanded = expanded;
+            });
+        };
+        var this_1 = this;
+        for (var env in this.Environments) {
+            _loop_1(env);
+        }
+        setTimeout(function () {
+            callback();
+        }, 10000);
+    };
+    DashComponent.prototype.callback = function () {
+        var _this = this;
+        setTimeout(function () { return _this.getOverallStatus(_this.callback.bind(_this)); }, 10000);
     };
     DashComponent.prototype.getStatusSummary = function (environment) {
         var _this = this;
@@ -69,28 +83,12 @@ var DashComponent = (function () {
             env.summary = summary;
         });
     };
-    // getHealthRun(){
-    //   this.http.request('http://127.0.0.1:5000/getHealthRun?nid=' + this.nid_no2)
-    //             .debounceTime(400)
-    //             .distinctUntilChanged()
-    //             .subscribe(response => this.HealthCheck = response.json());    
-    // // }
     DashComponent.prototype.getDetailedStatus = function (environment, machine) {
         this.dashService.getDetailedStatus(environment, machine.nid, function (response) {
-            //let env = this.Environments[environment]
             var expanded = machine.details ? machine.details.map(function (m) { return m.expanded; }) : [];
             machine.details = response.json();
             for (var i in expanded) {
                 machine.details[i].expanded = expanded[i];
-            }
-        });
-    };
-    DashComponent.prototype.getEnvironments = function () {
-        var _this = this;
-        this.dashService.getEnvironments(function (response) {
-            _this.Environments = response.json();
-            if (!_this.Environments2) {
-                _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
             }
         });
     };
@@ -100,7 +98,7 @@ var DashComponent = (function () {
             templateUrl: 'app/dash/templates/page.html',
             providers: [dash_service_1.DashService, http_1.HTTP_PROVIDERS],
         }), 
-        __metadata('design:paramtypes', [dash_service_1.DashService, http_1.Http])
+        __metadata('design:paramtypes', [dash_service_1.DashService])
     ], DashComponent);
     return DashComponent;
 }());

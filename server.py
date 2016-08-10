@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, render_template, Response, request, jsonify
+from flask import Flask, send_from_directory, render_template, request, jsonify
 from environment import Environment
 import json, os
 
@@ -38,7 +38,6 @@ def init():
     
 init()
 
-
 """ Server API"""
 def helper(api, environment_name, data={}):
     api_link = apis[api]
@@ -74,14 +73,12 @@ def get_all_machines_details():
 
 #sends the environments to the client 
 
-
 @app.route("/")
 def main_page():
     return render_template("index.html")
 
 @app.route("/getDetailedStatus")
 def getDetailedStatus():
-    #import pudb;pu.db
     environment = request.args.get('environment')
     nid = request.args.get('nid')
     temp = helper('getDetailedStatus',environment, {'nid':nid})
@@ -90,7 +87,6 @@ def getDetailedStatus():
      
 @app.route("/getStatusSummary")
 def getStatusSummary():
-    # import pudb;pu.db
     environment = request.args.get('environment')
     machines = helper('getStatusSummary', environment).values()
     return jsonify(machines)
@@ -112,12 +108,6 @@ def send_environments():
         env_item['status_summary'] = []
         env_list[env] = env_item
     return jsonify(env_list)
-
-@app.route("/getHealthRun")
-def getHealthRun():
-    nid = request.args.get('nid')
-    environment = request.args.get('environment')
-    return jsonify(helper('getHealthRun', environment, {'nid': nid}))
      
 if __name__ == "__main__":
     import subprocess

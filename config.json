@@ -1,18 +1,23 @@
 {
    "envs": [
         {
-        "name":"",
-        "url":"",
-        "login":"",
-        "password":"",
+        "name":"du-conv-3",
+        "url":"https://du-conv-3.demo.greenitglobe.com",
+        "login":"waleedhammam",
+        "password":"waleedhammam@codescalers",
         "login_url":"https://du-conv-3.demo.greenitglobe.com/restmachine/system/usermanager/authenticate"
+        },
+        {
+        "name":"du-conv-2",
+        "url":"https://du-conv-2.demo.greenitglobe.com",
+        "login":"waleed",
+        "password":"waleed@code",
+        "login_url":"https://du-conv-2.demo.greenitglobe.com/restmachine/system/usermanager/authenticate"
         }
-        
     ],
     "apis":{
         "getDetailedStatus":"/restmachine/system/health/getDetailedStatus",
         "getOverallStatus":"/restmachine/system/health/getOverallStatus",
-        "getStatusSummary":"/restmachine/system/health/getStatusSummary",
-        "getHealthRun":"/restmachine/system/health/run"
+        "getStatusSummary":"/restmachine/system/health/getStatusSummary"
     }
 }
