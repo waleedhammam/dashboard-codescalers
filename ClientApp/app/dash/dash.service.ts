@@ -6,52 +6,43 @@ import { DashComponent }  from './dash.component';
 @Injectable()
 export class DashService {
   constructor(private http:Http) {}
-  result;
-  getStatusSummary (environment,callback) {
+  getStatusSummary (environment) {
 
     let dashUrl = '/getStatusSummary?environment=' + environment;
-    this.http.request(dashUrl)
+    return this.http.request(dashUrl)
               .debounceTime(400)
               .distinctUntilChanged()
-              .subscribe(callback);
+              .toPromise();
   }
-  getOverallStatus(environment, callback) {
+  getOverallStatus(environment) {
 
     let dashUrl = '/getOverallStatus?environment=' + environment;
-    this.http.request(dashUrl)
+    return this.http.request(dashUrl)
               .debounceTime(400)
               .distinctUntilChanged()
-              .subscribe(callback);
+              .toPromise()
+              
 
   }
-  getDetailedStatus(envionment, nid, callback) {
+  getDetailedStatus(envionment, nid) {
 
     let dashUrl = '/getDetailedStatus?environment='+ envionment + '&nid=' + nid;
     
-    this.http.request(dashUrl)
+    return this.http.request(dashUrl)
               .debounceTime(400)
               .distinctUntilChanged()
-              .subscribe(callback);
+              .toPromise();
 
   }
-  getHealthRun(callback) {
 
-    let dashUrl = '/getHealthRun';
-    
-    this.http.request(dashUrl)
-              .debounceTime(400)
-              .distinctUntilChanged()
-              .subscribe(callback);
-
-  }
-  getEnvironments(callback) {
+  getEnvironments() {
 
     let dashUrl = '/environments';
     
-    this.http.request(dashUrl)
+    return this.http.request(dashUrl)
               .debounceTime(400)
               .distinctUntilChanged()
-              .subscribe(callback);
+              .toPromise()
 
   }
 }

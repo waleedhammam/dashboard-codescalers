@@ -112,9 +112,13 @@ body {
     position: absolute;
     right: 20px;
 }
-.child_right {
+.child-right {
   position: absolute;
   right : 40px
+}
+.deep-right{
+  position: absolute;
+  right : 60px
 }
 .left {
     position: absolute;

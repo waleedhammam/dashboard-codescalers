@@ -14,40 +14,33 @@ var DashService = (function () {
     function DashService(http) {
         this.http = http;
     }
-    DashService.prototype.getStatusSummary = function (environment, callback) {
+    DashService.prototype.getStatusSummary = function (environment) {
         var dashUrl = '/getStatusSummary?environment=' + environment;
-        this.http.request(dashUrl)
+        return this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
-            .subscribe(callback);
+            .toPromise();
     };
-    DashService.prototype.getOverallStatus = function (environment, callback) {
+    DashService.prototype.getOverallStatus = function (environment) {
         var dashUrl = '/getOverallStatus?environment=' + environment;
-        this.http.request(dashUrl)
+        return this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
-            .subscribe(callback);
+            .toPromise();
     };
-    DashService.prototype.getDetailedStatus = function (envionment, nid, callback) {
+    DashService.prototype.getDetailedStatus = function (envionment, nid) {
         var dashUrl = '/getDetailedStatus?environment=' + envionment + '&nid=' + nid;
-        this.http.request(dashUrl)
+        return this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
-            .subscribe(callback);
+            .toPromise();
     };
-    DashService.prototype.getHealthRun = function (callback) {
-        var dashUrl = '/getHealthRun';
-        this.http.request(dashUrl)
-            .debounceTime(400)
-            .distinctUntilChanged()
-            .subscribe(callback);
-    };
-    DashService.prototype.getEnvironments = function (callback) {
+    DashService.prototype.getEnvironments = function () {
         var dashUrl = '/environments';
-        this.http.request(dashUrl)
+        return this.http.request(dashUrl)
             .debounceTime(400)
             .distinctUntilChanged()
-            .subscribe(callback);
+            .toPromise();
     };
     DashService = __decorate([
         core_1.Injectable(), 
