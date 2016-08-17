@@ -38,7 +38,7 @@
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne" *ngFor="let env of Environments2">
 
-            <div class="right state-{{env.state}}" id="state-machine-1"></div>
+            <div class="right state state-{{env.state}}" ></div>
             <h4 class="panel-title">
                 <!--the env name item -->
 
@@ -51,6 +51,7 @@
                     <div *ngIf="env.summary">
                         <div class="panel-heading" *ngFor="let machine of env.summary">
                             <!-- machine status-->
+            <div class="child-right state state-{{machine.status}}" ></div>
 
                             <h4 class="panel-title ">
                                 <a data-toggle="collapse"  style="display: inline;outline: 0;" (click)=" getDetailedStatus(env.name, machine);machine.expanded = !machine.expanded;">Machine Name : {{machine.name}} 

@@ -49,13 +49,13 @@ body {
   }
 }
 
-.state-EXPIRED, .state-ERROR, .state-WARNING, .state-DEGRADED, .state-OK, .state-RUNNING{
+.state, .state-EXPIRED, .state-ERROR, .state-WARNING, .state-DEGRADED, .state-OK, .state-RUNNING{
       width: 20px;
       height: 10px;
       -webkit-border-radius: 25px;
       -moz-border-radius: 25px;
       border-radius: 25px;
-      background: darkorange;
+      background: orangered;
     }
 
 .state-ERROR {
