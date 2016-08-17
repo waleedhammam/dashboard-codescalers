@@ -22,17 +22,14 @@ var DashComponent = (function () {
     DashComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.getEnvironments().then(function (envs) {
-            console.log("typeof(envs)==========> " + typeof (envs));
             _this.getAllData(envs, _this.timeoutTheDetails.bind(_this, envs));
         });
     };
     DashComponent.prototype.getAllData = function (envs, callback) {
-        console.log("envs=> " + envs);
-        console.log("callback => " + callback);
         Promise.all(envs.map(this.getOverallStatus.bind(this))).then(callback);
     };
     DashComponent.prototype.timeoutTheDetails = function (envs) {
-        setTimeout(this.getAllData.bind(this, envs, this.timeoutTheDetails.bind(this, envs)), 1000);
+        setTimeout(this.getAllData.bind(this, envs, this.timeoutTheDetails.bind(this, envs)), 3000);
     };
     // gets the state of every machine        
     DashComponent.prototype.getOverallStatus = function (environment) {

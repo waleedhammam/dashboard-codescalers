@@ -13,7 +13,6 @@ export class DashComponent implements OnInit {
   nid = '';
   Environments;
   Environments2;
-
   OverallStatus = {};
   StatusSummary: Object;
   DetailedStatus;
@@ -26,7 +25,6 @@ export class DashComponent implements OnInit {
 
   ngOnInit() {
     this.getEnvironments().then((envs) =>{
-      console.log("typeof(envs)==========> " + typeof(envs))
         this.getAllData(envs,this.timeoutTheDetails.bind(this,envs))
    });
 
@@ -34,8 +32,7 @@ export class DashComponent implements OnInit {
   }
 
   getAllData(envs,callback) {
-    console.log("envs=> "+ envs)
-    console.log("callback => " +callback)
+
     Promise.all(envs.map(this.getOverallStatus.bind(this))).then(callback)
 
   
@@ -43,7 +40,7 @@ export class DashComponent implements OnInit {
 
 
   timeoutTheDetails(envs) {
-    setTimeout(this.getAllData.bind(this,envs, this.timeoutTheDetails.bind(this, envs)), 1000);
+    setTimeout(this.getAllData.bind(this,envs, this.timeoutTheDetails.bind(this, envs)), 3000);
   }
 
   // gets the state of every machine        
