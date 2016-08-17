@@ -54,7 +54,7 @@
                             <div *ngIf="machine" id="machine-status" class=" state-{{machine.status}} child-right "></div>
 
                             <h4 class="panel-title ">
-                                <a data-toggle="collapse"  style="display: inline;outline: 0;" (click)="machine.expanded = !machine.expanded">Machine Name : {{machine.name}} 
+                                <a data-toggle="collapse"  style="display: inline;outline: 0;" (click)=" getDetailedStatus(env.name, machine);machine.expanded = !machine.expanded;">Machine Name : {{machine.name}} 
             <!--{{nid=}} = {{machine.nid}}--> 
             gid = {{machine.gid}}
             nid = {{machine.nid}}
