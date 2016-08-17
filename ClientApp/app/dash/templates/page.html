@@ -51,7 +51,6 @@
                     <div *ngIf="env.summary">
                         <div class="panel-heading" *ngFor="let machine of env.summary">
                             <!-- machine status-->
-                            <div *ngIf="machine" id="machine-status" class="  state state-{{machine.status}} child-right "></div>
 
                             <h4 class="panel-title ">
                                 <a data-toggle="collapse"  style="display: inline;outline: 0;" (click)=" getDetailedStatus(env.name, machine);machine.expanded = !machine.expanded;">Machine Name : {{machine.name}} 
