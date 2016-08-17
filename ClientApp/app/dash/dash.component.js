@@ -29,7 +29,7 @@ var DashComponent = (function () {
         Promise.all(envs.map(this.getOverallStatus.bind(this))).then(callback);
     };
     DashComponent.prototype.timeoutTheDetails = function (envs) {
-        setTimeout(this.getAllData.bind(this, envs, this.timeoutTheDetails.bind(this, envs)), 1000);
+        setTimeout(this.getAllData.bind(this, envs, this.timeoutTheDetails.bind(this, envs)), 3000);
     };
     // gets the state of every machine        
     DashComponent.prototype.getOverallStatus = function (environment) {

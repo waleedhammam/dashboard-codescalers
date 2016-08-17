@@ -49,6 +49,14 @@ body {
   }
 }
 
+.state{
+      width: 20px;
+      height: 10px;
+      -webkit-border-radius: 25px;
+      -moz-border-radius: 25px;
+      border-radius: 25px;
+      background: orangered;
+}
 
 .state-EXPIRED{
       width: 20px;

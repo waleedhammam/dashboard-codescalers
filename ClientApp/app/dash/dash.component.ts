@@ -40,7 +40,7 @@ export class DashComponent implements OnInit {
 
 
   timeoutTheDetails(envs) {
-    setTimeout(this.getAllData.bind(this,envs, this.timeoutTheDetails.bind(this, envs)), 1000);
+    setTimeout(this.getAllData.bind(this,envs, this.timeoutTheDetails.bind(this, envs)), 3000);
   }
 
   // gets the state of every machine        
