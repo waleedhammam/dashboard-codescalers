@@ -42,7 +42,7 @@
             <h4 class="panel-title">
                 <!--the env name item -->
 
-                <a (click)="env.expanded = !env.expanded">{{env.name}} </a>
+                <a (click)="getStatusSummary(env.name);env.expanded = !env.expanded">{{env.name}} </a>
             </h4>
             <div id="collapse1" class="panel-collapse" [class.collapse]="!env.expanded" role="tabpanel" aria-labelledby="headingOne">
 

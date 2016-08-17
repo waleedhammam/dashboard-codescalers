@@ -43,7 +43,8 @@ var DashComponent = (function () {
             function is_expanded(env) {
                 return this.Environments[env].expanded;
             }
-            return Object.keys(_this.Environments);
+            var expanded_envs = Object.keys(_this.Environments).filter(is_expanded.bind(_this));
+            return expanded_envs;
         }).then(function (environments) {
             return Promise.all(environments.map(_this.getStatusSummary.bind(_this)));
         });

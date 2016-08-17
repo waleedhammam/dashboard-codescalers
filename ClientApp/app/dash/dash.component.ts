@@ -56,7 +56,9 @@ export class DashComponent implements OnInit {
         function is_expanded(env) {
           return this.Environments[env].expanded
         }
-        return Object.keys(this.Environments)
+        let expanded_envs = Object.keys(this.Environments).filter(is_expanded.bind(this))
+        
+        return expanded_envs
       }
     ).then((environments) => {
       return Promise.all(environments.map(this.getStatusSummary.bind(this)))
