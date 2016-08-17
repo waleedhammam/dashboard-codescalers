@@ -52,14 +52,15 @@
                         <div class="panel-heading" *ngFor="let machine of env.summary">
                             <!-- machine status-->
                             <div *ngIf="machine" id="machine-status" class=" state-{{machine.status}} child-right "></div>
+                            <div *ngif="state-{{machine.status}}"
 
                             <h4 class="panel-title ">
                                 <a data-toggle="collapse"  style="display: inline;outline: 0;" (click)="machine.expanded = !machine.expanded">Machine Name : {{machine.name}} 
-            <!--{{nid=}} = {{machine.nid}}--> 
-            gid = {{machine.gid}}
-            nid = {{machine.nid}}
-            level = {{machine.level}}
-                </a>
+                                <!--{{nid=}} = {{machine.nid}}--> 
+                                gid = {{machine.gid}}
+                                nid = {{machine.nid}}
+                                level = {{machine.level}}
+                                </a>
                             </h4>
                             <div class="panel-body">
 

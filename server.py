@@ -114,7 +114,7 @@ if __name__ == "__main__":
     from time import sleep
     process = subprocess.Popen(["bash", "-c", 
     """cd ClientApp; tsc -w"""])
-    app.run(threaded=True)
+    app.run(host= '0.0.0.0', threaded=True)
     process.terminate()
     sleep(1)
     process.kill()

@@ -49,8 +49,7 @@ body {
   }
 }
 
-
-.state-EXPIRED{
+.state-EXPIRED, .state-ERROR, .state-WARNING, .state-DEGRADED, .state-OK, .state-RUNNING{
       width: 20px;
       height: 10px;
       -webkit-border-radius: 25px;
@@ -60,47 +59,20 @@ body {
     }
 
 .state-ERROR {
-      width: 20px;
-      height: 10px;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      border-radius: 25px;
       background: red;
     }
 .state-WARNING {
-      width: 20px;
-      height: 10px;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      border-radius: 25px;
       background: #FFDD33;
     }
 
-
   .state-DEGRADED {
-      width: 20px;
-      height: 10px;
-      -webkit-border-radius: 25px;
-      -moz-border-radius: 25px;
-      border-radius: 25px;
       background: orangered;
-      ;
     }
 
 .state-OK  {
-      width: 20px;
-      height: 10px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 20px;
       background: seagreen;
     }
 .state-RUNNING {
-      width: 20px;
-      height: 10px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 20px;
       background: seagreen;
     }
 
