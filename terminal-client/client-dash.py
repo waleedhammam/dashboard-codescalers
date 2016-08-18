@@ -41,15 +41,24 @@ def get_service_details(env_name, nid, service_name):
     return service_details
 
 
+
+
+count = 0
 # for fancy colors 
 OKGREEN = '\033[92m'
 OKBLUE = '\033[94m'
 ENDC = '\033[0m'
+RED = '\033[91m'
+YELLOW = '\033[93m'
+def out(value):
+    print RED + "["+str(count)+"] :" + ENDC,
+    print str(value)
+
 #####
 
 user_in = ""
 
-help = OKBLUE+ """
+help = YELLOW+ """
 welcome to the dashboard clinet terminal app 
 for the envs available write 'envs'
 for status of an env write 'env_name'
@@ -60,7 +69,6 @@ for exit write 'exit'
 """ + ENDC
 
 
-count = 0
 envs = get_envs()
 envs_list = map((lambda env : env['name']), envs)
 
@@ -72,35 +80,37 @@ while(user_in != "exit") :
     if (user_in_len < 1):
         continue
     elif (user_in[0] == 'help'):
-        print help
+       out(help)
     elif(user_in[0] == 'envs'):
-        print envs
+        out(envs)
     elif(user_in[0] in envs_list ):
         if(user_in_len < 2):
             res = get_status_summary(user_in[0])
+            out("")
             for machine in res :
                 print machine
         else : 
             if (user_in_len == 2) : 
                try:
                     res = get_machine_status(user_in[0], user_in[1])
-                    print res
+                    out(res)
                except :
-                   print "wrong machine name !"
+                   out("wrong machine name !")
                
                 
             elif(user_in_len == 3) : 
                 try:
                     res = get_service_details(user_in[0], user_in[1], user_in[2])
                     for service in res :
-                        print service
+                        out(service)
                 except :
-                    print "wrong machine id or service name"
+                    out("wrong machine id or service name")
                 
     elif(user_in[0] == 'exit'):
+        out("Goodbye :D")
         break
     else : 
-        print "wrong input :( "
+        out("wrong input :( ")
         continue
     count += 1
             
