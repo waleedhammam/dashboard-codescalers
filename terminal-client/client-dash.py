@@ -101,8 +101,9 @@ while(user_in != "exit") :
             elif(user_in_len == 3) : 
                 try:
                     res = get_service_details(user_in[0], user_in[1], user_in[2])
+                    out("")
                     for service in res :
-                        out(service)
+                        print service
                 except :
                     out("wrong machine id or service name")
                 
