@@ -10,100 +10,99 @@ import { DashService } from './dash.service';
 })
 
 export class DashComponent implements OnInit {
-  nid = '';
+  Nid = '';
   Environments;
   Environments2;
   OverallStatus = {};
   StatusSummary: Object;
   DetailedStatus;
-  data_arrived = true;
-  id;
+  Id;
 
   constructor(private dashService: DashService, private http: Http) {
 
   }
 
   ngOnInit() {
-    this.getEnvironments().then((envs) =>{
-        this.getAllData(envs,this.timeoutTheDetails.bind(this,envs))
+    this.getEnvironments().then((Envs) =>{
+        this.getAllData(Envs,this.timeoutTheDetails.bind(this,Envs))
    });
 
 
   }
 
-  getAllData(envs,callback) {
+  getAllData(Envs,Callback) {
 
-    Promise.all(envs.map(this.getOverallStatus.bind(this))).then(callback)
+    Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback)
 
   
 }
 
 
-  timeoutTheDetails(envs) {
-    setTimeout(this.getAllData.bind(this,envs, this.timeoutTheDetails.bind(this, envs)), 3000);
+  timeoutTheDetails(Envs) {
+    setTimeout(this.getAllData.bind(this,Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
   }
 
   // gets the state of every machine        
-  getOverallStatus(environment) {
+  getOverallStatus(Environment) {
 
-    return this.dashService.getOverallStatus(environment).then(
+    return this.dashService.getOverallStatus(Environment).then(
       (response) => {
-        let expanded = this.Environments[environment].expanded
-        this.OverallStatus[environment] = response.json()
-        this.Environments[environment]['state'] = this.OverallStatus[environment]['state']
-        this.Environments[environment].expanded = expanded
-        function is_expanded(env) {
-          return this.Environments[env].expanded
+        let Expanded = this.Environments[Environment].expanded
+        this.OverallStatus[Environment] = response.json()
+        this.Environments[Environment]['state'] = this.OverallStatus[Environment]['state']
+        this.Environments[Environment].expanded = Expanded
+        function isExpanded(Env) {
+          return this.Environments[Env].expanded
         }
-        let expanded_envs = Object.keys(this.Environments).filter(is_expanded.bind(this))
+        let ExpandedEnvs = Object.keys(this.Environments).filter(isExpanded.bind(this))
         
-        return expanded_envs
+        return ExpandedEnvs
       }
-    ).then((environments) => {
-      return Promise.all(environments.map(this.getStatusSummary.bind(this)))
+    ).then((Environments) => {
+      return Promise.all(Environments.map(this.getStatusSummary.bind(this)))
     })
 
   }
 
-  // gets the basic info of every machine in the environment
-  getStatusSummary(environment) {
-    return this.dashService.getStatusSummary(environment).then((response) => {
-      let env = this.Environments[environment]
+  // gets the basic info of every machine in the Environment
+  getStatusSummary(Environment) {
+    return this.dashService.getStatusSummary(Environment).then((response) => {
+      let Env = this.Environments[Environment]
       //check and get DetailedStatus
-      let expanded = env.summary ? env.summary.map(m => m.expanded) : [];
-      let details = env.summary ? env.summary.map(m => m.details) : [];
-      let summary = response.json();
+      let Expanded = Env.summary ? Env.summary.map(m => m.expanded) : [];
+      let Details = Env.summary ? Env.summary.map(m => m.details) : [];
+      let Summary = response.json();
 
-      for (let i in expanded) {
-        if (summary[i] != undefined){
-        summary[i].expanded = expanded[i]
-        summary[i].details = details[i]
+      for (let i in Expanded) {
+        if (Summary[i] != undefined){
+        Summary[i].expanded = Expanded[i]
+        Summary[i].details = Details[i]
         }
       }
 
-      for (let machine in summary) {
-        if (expanded[machine]) {
+      for (let Machine in Summary) {
+        if (Expanded[Machine]) {
         }
       }
 
-      function is_expanded(_, machine) {
-        return expanded[machine]
+      function isExpanded(_, Machine) {
+        return Expanded[Machine]
       }
 
-      let expanded_machines = summary.filter(is_expanded)
-      env.summary = summary
-      return expanded_machines
-    }).then((expanded_machines) => { return Promise.all(expanded_machines.map(this.getDetailedStatus.bind(this, environment))) });
+      let ExpandedMachines = Summary.filter(isExpanded)
+      Env.summary = Summary
+      return ExpandedMachines
+    }).then((ExpandedMachines) => { return Promise.all(ExpandedMachines.map(this.getDetailedStatus.bind(this, Environment))) });
   }
 
   // gets a detailed info of a machine
-  getDetailedStatus(environment, machine) {
-    return this.dashService.getDetailedStatus(environment, machine.nid).then((response) => {
-      let expanded = machine.details ? machine.details.map(m => m.expanded) : [];
-      machine.details = response.json();
+  getDetailedStatus(Environment, Machine) {
+    return this.dashService.getDetailedStatus(Environment, Machine.nid).then((response) => {
+      let Expanded = Machine.details ? Machine.details.map(m => m.expanded) : [];
+      Machine.details = response.json();
 
-      for (let i in expanded) {
-        machine.details[i].expanded = expanded[i]
+      for (let i in Expanded) {
+        Machine.details[i].expanded = Expanded[i]
       }
     });
   }
@@ -113,10 +112,10 @@ export class DashComponent implements OnInit {
       this.Environments = response.json();
       if (!this.Environments2) {
         this.Environments2 = Object.keys(this.Environments).map(name => this.Environments[name]);
-        this.Environments2.map(env => env.expanded = false)
+        this.Environments2.map(Env => Env.expanded = false)
       }
 
-     return this.Environments2.map(env => env.name)
+     return this.Environments2.map(Env => Env.name)
     })
   }
 

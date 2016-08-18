@@ -15,72 +15,72 @@ var DashComponent = (function () {
     function DashComponent(dashService, http) {
         this.dashService = dashService;
         this.http = http;
-        this.nid = '';
+        this.Nid = '';
         this.OverallStatus = {};
-        this.data_arrived = true;
     }
     DashComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.getEnvironments().then(function (envs) {
-            _this.getAllData(envs, _this.timeoutTheDetails.bind(_this, envs));
+        this.getEnvironments().then(function (Envs) {
+            _this.getAllData(Envs, _this.timeoutTheDetails.bind(_this, Envs));
         });
     };
-    DashComponent.prototype.getAllData = function (envs, callback) {
-        Promise.all(envs.map(this.getOverallStatus.bind(this))).then(callback);
+    DashComponent.prototype.getAllData = function (Envs, Callback) {
+        Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback);
     };
-    DashComponent.prototype.timeoutTheDetails = function (envs) {
-        setTimeout(this.getAllData.bind(this, envs, this.timeoutTheDetails.bind(this, envs)), 3000);
+    DashComponent.prototype.timeoutTheDetails = function (Envs) {
+        setTimeout(this.getAllData.bind(this, Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
     };
     // gets the state of every machine        
-    DashComponent.prototype.getOverallStatus = function (environment) {
+    DashComponent.prototype.getOverallStatus = function (Environment) {
         var _this = this;
-        return this.dashService.getOverallStatus(environment).then(function (response) {
-            var expanded = _this.Environments[environment].expanded;
-            console.log("Enironments Expanded " + expanded);
-            _this.OverallStatus[environment] = response.json();
-            _this.Environments[environment]['state'] = _this.OverallStatus[environment]['state'];
-            _this.Environments[environment].expanded = expanded;
-            function is_expanded(env) {
-                return this.Environments[env].expanded;
+        return this.dashService.getOverallStatus(Environment).then(function (response) {
+            var Expanded = _this.Environments[Environment].expanded;
+            _this.OverallStatus[Environment] = response.json();
+            _this.Environments[Environment]['state'] = _this.OverallStatus[Environment]['state'];
+            _this.Environments[Environment].expanded = Expanded;
+            function isExpanded(Env) {
+                return this.Environments[Env].expanded;
             }
-            var expanded_envs = Object.keys(_this.Environments).filter(is_expanded.bind(_this));
-            return expanded_envs;
-        }).then(function (environments) {
-            return Promise.all(environments.map(_this.getStatusSummary.bind(_this)));
+            var ExpandedEnvs = Object.keys(_this.Environments).filter(isExpanded.bind(_this));
+            return ExpandedEnvs;
+        }).then(function (Environments) {
+            return Promise.all(Environments.map(_this.getStatusSummary.bind(_this)));
         });
     };
-    // gets the basic info of every machine in the environment
-    DashComponent.prototype.getStatusSummary = function (environment) {
+    // gets the basic info of every machine in the Environment
+    DashComponent.prototype.getStatusSummary = function (Environment) {
         var _this = this;
-        return this.dashService.getStatusSummary(environment).then(function (response) {
-            var env = _this.Environments[environment];
+        return this.dashService.getStatusSummary(Environment).then(function (response) {
+            var Env = _this.Environments[Environment];
             //check and get DetailedStatus
-            var expanded = env.summary ? env.summary.map(function (m) { return m.expanded; }) : [];
-            var details = env.summary ? env.summary.map(function (m) { return m.details; }) : [];
-            var summary = response.json();
-            for (var i in expanded) {
-                summary[i].expanded = expanded[i];
-                summary[i].details = details[i];
-            }
-            for (var machine in summary) {
-                if (expanded[machine]) {
+            var Expanded = Env.summary ? Env.summary.map(function (m) { return m.expanded; }) : [];
+            var Details = Env.summary ? Env.summary.map(function (m) { return m.details; }) : [];
+            var Summary = response.json();
+            for (var i in Expanded) {
+                if (Summary[i] != undefined) {
+                    Summary[i].expanded = Expanded[i];
+                    Summary[i].details = Details[i];
                 }
             }
-            function is_expanded(_, machine) {
-                return expanded[machine];
+            for (var Machine in Summary) {
+                if (Expanded[Machine]) {
+                }
             }
-            var expanded_machines = summary.filter(is_expanded);
-            env.summary = summary;
-            return expanded_machines;
-        }).then(function (expanded_machines) { return Promise.all(expanded_machines.map(_this.getDetailedStatus.bind(_this, environment))); });
+            function isExpanded(_, Machine) {
+                return Expanded[Machine];
+            }
+            var ExpandedMachines = Summary.filter(isExpanded);
+            Env.summary = Summary;
+            return ExpandedMachines;
+        }).then(function (ExpandedMachines) { return Promise.all(ExpandedMachines.map(_this.getDetailedStatus.bind(_this, Environment))); });
     };
     // gets a detailed info of a machine
-    DashComponent.prototype.getDetailedStatus = function (environment, machine) {
-        return this.dashService.getDetailedStatus(environment, machine.nid).then(function (response) {
-            var expanded = machine.details ? machine.details.map(function (m) { return m.expanded; }) : [];
-            machine.details = response.json();
-            for (var i in expanded) {
-                machine.details[i].expanded = expanded[i];
+    DashComponent.prototype.getDetailedStatus = function (Environment, Machine) {
+        return this.dashService.getDetailedStatus(Environment, Machine.nid).then(function (response) {
+            var Expanded = Machine.details ? Machine.details.map(function (m) { return m.expanded; }) : [];
+            Machine.details = response.json();
+            for (var i in Expanded) {
+                Machine.details[i].expanded = Expanded[i];
             }
         });
     };
@@ -90,9 +90,9 @@ var DashComponent = (function () {
             _this.Environments = response.json();
             if (!_this.Environments2) {
                 _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
-                _this.Environments2.map(function (env) { return env.expanded = false; });
+                _this.Environments2.map(function (Env) { return Env.expanded = false; });
             }
-            return _this.Environments2.map(function (env) { return env.name; });
+            return _this.Environments2.map(function (Env) { return Env.name; });
         });
     };
     DashComponent = __decorate([

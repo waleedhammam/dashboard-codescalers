@@ -21,15 +21,16 @@ body {
  * Top navigation
  * Hide default border to remove 1px line.
  */
-.navbar-fixed-top {
-  border: 0;
-}
+
 
 /*
  * Sidebar
  */
 
 /* Hide for mobile, show later */
+.x{
+  background-color: blue;
+}
 .sidebar {
   display: none;
 }

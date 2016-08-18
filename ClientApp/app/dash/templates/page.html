@@ -16,33 +16,43 @@
 <![endif]-->
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
 
-            <a class="navbar-brand" href="#">envs Dashboard
-        </a>
+                <a class="navbar-brand" href="#">Envs Dashboard</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-
-    </div>
-</nav>
-<h2>....</h2>
-
-<div class="container-fluid">
-    <div class="row">
-
-    </div>
-</div>
+        <!-- /.container -->
+    </nav>
+<br>
+<br>
+    <!-- Page Content -->
+        <!-- Page Header -->
+        <div class="row">
+            <div class="col-lg-12" >
+                <h1 class="page-header" style="left:10px;">Environments Status
+                    <small> </small>
+                </h1>
+            </div>
+        </div>
 <div class="panel-group">
 
     <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne" *ngFor="let env of Environments2">
+        <div class="panel-heading " role="tab" id="headingOne" *ngFor="let env of Environments2">
 
             <div class="right state state-{{env.state}}" ></div>
             <h4 class="panel-title">
                 <!--the env name item -->
 
                 <a (click)="getStatusSummary(env.name);env.expanded = !env.expanded">{{env.name}} </a>
+
             </h4>
             <div id="collapse1" class="panel-collapse" [class.collapse]="!env.expanded" role="tabpanel" aria-labelledby="headingOne">
 
@@ -75,7 +85,6 @@
                                             <a data-toggle="collapse" (click)="category.expanded  = !category.expanded" href="#collapsend" style="display: inline; outline: 0;">
                                     {{category.name}}
         </a>
-
                                         </h4>
                                         <div class="panel-body">
 
@@ -97,6 +106,7 @@
                     </div>
 
                 </div>
+
             </div>
 
             <!-- Machines of the env -->
