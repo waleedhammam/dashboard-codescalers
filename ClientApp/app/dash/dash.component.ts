@@ -49,7 +49,6 @@ export class DashComponent implements OnInit {
     return this.dashService.getOverallStatus(environment).then(
       (response) => {
         let expanded = this.Environments[environment].expanded
-        console.log("Enironments Expanded " + expanded)
         this.OverallStatus[environment] = response.json()
         this.Environments[environment]['state'] = this.OverallStatus[environment]['state']
         this.Environments[environment].expanded = expanded
@@ -76,8 +75,10 @@ export class DashComponent implements OnInit {
       let summary = response.json();
 
       for (let i in expanded) {
+        if (summary[i] != undefined){
         summary[i].expanded = expanded[i]
         summary[i].details = details[i]
+        }
       }
 
       for (let machine in summary) {
