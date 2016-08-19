@@ -62,8 +62,8 @@ help = YELLOW+ """
 welcome to the dashboard clinet terminal app 
 for the envs available write 'envs'
 for status of an env write 'env_name'
-for status of an machine write 'env_name machine_nid'
-for status of an spesefic service write 'env_name machine_nid service_name'
+for status of an machine write 'env_name/machine_nid'
+for status of an spesefic service write 'env_name/machine_nid/service_name'
 for printing this again write 'help'
 for exit write 'exit'
 """ + ENDC
@@ -75,7 +75,7 @@ envs_list = map((lambda env : env['name']), envs)
 print help
 while(user_in != "exit") :
     user_in = raw_input(OKGREEN + "["+str(count)+"] : " + ENDC)
-    user_in = user_in.split()
+    user_in = user_in.split("/")
     user_in_len = len(user_in)
     if (user_in_len < 1):
         continue
@@ -93,7 +93,9 @@ while(user_in != "exit") :
             if (user_in_len == 2) : 
                try:
                     res = get_machine_status(user_in[0], user_in[1])
-                    out(res)
+                    out("")
+                    for i in res :
+                        print i
                except :
                    out("wrong machine name !")
                
@@ -114,5 +116,5 @@ while(user_in != "exit") :
         out("wrong input :( ")
         continue
     count += 1
-            
+    print 
 
