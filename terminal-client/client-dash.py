@@ -1,5 +1,5 @@
 import requests
-
+import json
 base_url = "http://127.0.0.1:5000"
 
 ## requests makers 
@@ -54,6 +54,8 @@ def out(value):
     print RED + "["+str(count)+"] :" + ENDC,
     print str(value)
 
+def pretty_print(json_obj):
+    print json.dumps(json_obj, sort_keys=True, indent=2, separators=(',', ': '))
 #####
 
 user_in = ""
@@ -82,20 +84,22 @@ while(user_in != "exit") :
     elif (user_in[0] == 'help'):
        out(help)
     elif(user_in[0] == 'envs'):
-        out(envs)
+        out("")
+        for env in envs:
+            pretty_print(env)
     elif(user_in[0] in envs_list ):
         if(user_in_len < 2):
             res = get_status_summary(user_in[0])
             out("")
             for machine in res :
-                print machine
+                pretty_print(machine)
         else : 
             if (user_in_len == 2) : 
                try:
                     res = get_machine_status(user_in[0], user_in[1])
                     out("")
                     for i in res :
-                        print i
+                        pretty_print(i)
                except :
                    out("wrong machine name !")
                
@@ -105,7 +109,7 @@ while(user_in != "exit") :
                     res = get_service_details(user_in[0], user_in[1], user_in[2])
                     out("")
                     for service in res :
-                        print service
+                        pretty_print(service)
                 except :
                     out("wrong machine id or service name")
                 
