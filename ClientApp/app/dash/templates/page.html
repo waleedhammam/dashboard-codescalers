@@ -38,14 +38,14 @@
                     <div class="panel panel-default" *ngFor="let category of expandedMachine.details">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" href="#collapse-{{expandedMachine.name}}-{{category.name.substring(0, 2)}}">
+                                <a data-toggle="collapse" href="#collapse-{{expandedMachine.name}}-{{category.name.split(' ')[0]}}-{{category.name.split(' ')[1]}}">
                                     {{category.name}}
                                     <div class="open-blink open-blink-{{category.status}}"></div>
                                 </a>
                             </h4>
                         </div>
 
-                        <div id="collapse-{{expandedMachine.name}}-{{category.name.substring(0, 2)}}" class="panel-collapse collapse">
+                        <div id="collapse-{{expandedMachine.name}}-{{category.name.split(' ')[0]}}-{{category.name.split(' ')[1]}}" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <li class="list-group-item" *ngFor="let data_item of category.data">
                                     <div *ngIf="data_item" (click)="category.expanded  = !category.expanded" id="data_item.status" class="open-blink open-blink-{{data_item.status}} "></div>
