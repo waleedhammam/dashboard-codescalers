@@ -5,17 +5,22 @@
 (function(global) {
   // map tells the System loader where to look for things
   var map = {
+    /* changed to 'clent-app' to be exposed to python */
     'app':                        'client-app/app', // 'dist',
     '@angular':                   'client-app/node_modules/@angular',
     'angular2-in-memory-web-api': 'client-app/node_modules/angular2-in-memory-web-api',
-    'rxjs':                       'client-app/node_modules/rxjs'
+    'rxjs':                       'client-app/node_modules/rxjs',
+    'angular2-fontawesome':       'client-app/node_modules/angular2-fontawesome',
+    'ng2-bs3-modal':               'client-app/node_modules/ng2-bs3-modal'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-  };
+    'angular2-fontawesome':       { defaultExtension: 'js' },
+    "ng2-bs3-modal":              { main: "index.js", defaultExtension: "js" }
+  };  
   var ngPackageNames = [
     'common',
     'compiler',

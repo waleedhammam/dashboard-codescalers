@@ -50,7 +50,7 @@ body {
   }
 }
 
-.state, .state-EXPIRED, .state-ERROR, .state-WARNING, .state-DEGRADED, .state-OK, .state-RUNNING{
+.state{
       width: 20px;
       height: 10px;
       -webkit-border-radius: 25px;
@@ -61,7 +61,11 @@ body {
 
 .state-ERROR {
       background: red;
-    }
+}
+
+.state-HALTED{
+  background: red;
+}
 .state-WARNING {
       background: #FFDD33;
     }

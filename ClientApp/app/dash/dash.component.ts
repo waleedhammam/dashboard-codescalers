@@ -1,23 +1,39 @@
-import { Component, OnInit }        from '@angular/core';
+import { Component, OnInit, ViewChild}        from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
 import { HTTP_PROVIDERS, Http }  from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { DashService } from './dash.service';
+import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+
 
 @Component({
   selector: 'my-dash',
   templateUrl: 'app/dash/templates/page.html',
   providers: [DashService, HTTP_PROVIDERS],
+  directives: [MODAL_DIRECTIVES]
 })
 
 export class DashComponent implements OnInit {
   Nid = '';
   Environments;
   Environments2;
+  expandedMachine;
   OverallStatus = {};
   StatusSummary: Object;
   DetailedStatus;
   Id;
 
+
+    @ViewChild('modal')
+    modal: ModalComponent;
+
+    close() {
+        this.modal.close();
+    }
+
+    open() {
+        this.modal.open();
+    }
   constructor(private dashService: DashService, private http: Http) {
 
   }
@@ -28,14 +44,15 @@ export class DashComponent implements OnInit {
    });
 
 
+
   }
 
   getAllData(Envs,Callback) {
 
     Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback)
 
-  
-}
+
+  }
 
 
   timeoutTheDetails(Envs) {
@@ -90,6 +107,9 @@ export class DashComponent implements OnInit {
       }
 
       let ExpandedMachines = Summary.filter(isExpanded)
+      if (ExpandedMachines.length) {
+        this.expandedMachine = ExpandedMachines[0]
+      }
       Env.summary = Summary
       return ExpandedMachines
     }).then((ExpandedMachines) => { return Promise.all(ExpandedMachines.map(this.getDetailedStatus.bind(this, Environment))) });
