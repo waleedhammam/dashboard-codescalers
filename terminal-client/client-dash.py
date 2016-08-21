@@ -1,5 +1,7 @@
 import requests
 import json
+
+
 base_url = "http://127.0.0.1:5000"
 
 ## requests makers 
@@ -56,17 +58,27 @@ def out(value):
 
 def pretty_print(json_obj):
     print json.dumps(json_obj, sort_keys=True, indent=2, separators=(',', ': '))
-#####
 
+def print_all_data(data):
+    out("")
+    if type(data) == list : 
+        for i in data:
+            pretty_print(i)
+    else :
+        print data 
+
+
+    
+    
 user_in = ""
 
 help = YELLOW+ """
 welcome to the dashboard clinet terminal app 
-for the envs available write 'envs'
-for status of an env write 'env_name'
-for status of an machine write 'env_name/machine_nid'
-for status of an spesefic service write 'env_name/machine_nid/service_name'
-for printing this again write 'help'
+envs: lists available environments
+ENVNAME: status of env ENVNAME
+ENVNAME/MACHINEID: status of MACHINE on ENVNAME
+ENVNAMNE/MACHINE_ID/SERVICE_NAME: get service status at 'env_name/machine_nid/service_name'
+help: usage 
 for exit write 'exit'
 """ + ENDC
 
@@ -82,24 +94,18 @@ while(user_in != "exit") :
     if (user_in_len < 1):
         continue
     elif (user_in[0] == 'help'):
-       out(help)
+       print_all_data(help)
     elif(user_in[0] == 'envs'):
-        out("")
-        for env in envs:
-            pretty_print(env)
+        print_all_data( envs)
     elif(user_in[0] in envs_list ):
         if(user_in_len < 2):
             res = get_status_summary(user_in[0])
-            out("")
-            for machine in res :
-                pretty_print(machine)
+            print_all_data(res)
         else : 
             if (user_in_len == 2) : 
                try:
                     res = get_machine_status(user_in[0], user_in[1])
-                    out("")
-                    for i in res :
-                        pretty_print(i)
+                    print_all_data(res)
                except :
                    out("wrong machine name !")
                
@@ -107,9 +113,7 @@ while(user_in != "exit") :
             elif(user_in_len == 3) : 
                 try:
                     res = get_service_details(user_in[0], user_in[1], user_in[2])
-                    out("")
-                    for service in res :
-                        pretty_print(service)
+                    print_all_data(res)
                 except :
                     out("wrong machine id or service name")
                 
