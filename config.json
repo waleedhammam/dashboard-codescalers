@@ -1,0 +1,9 @@
+{
+   "envs": [
+    ],
+    "apis":{
+        "getDetailedStatus":"/restmachine/system/health/getDetailedStatus",
+        "getOverallStatus":"/restmachine/system/health/getOverallStatus",
+        "getStatusSummary":"/restmachine/system/health/getStatusSummary"
+    }
+}
