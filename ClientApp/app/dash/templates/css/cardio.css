@@ -130,11 +130,11 @@ h6 {
 	border-color: #00a8ff;
 }
 
-.service:hover .icon-holder {
+.service:hover .icon-holder, .opend .icon-holder {
 	top: -30px;
 }
 
-.service:hover .heading {
+.service:hover .heading , .opend .heading {
 	top: -30px;
 }
 
@@ -149,7 +149,7 @@ h6 {
 	transform: scale(0);
 }
 
-.service:hover .description {
+.service:hover .description, .opend .description{
 	opacity: 1;
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
@@ -204,7 +204,7 @@ content: "\f119";
     }
 
 
-.open-blink, .open-blink-ERROR, .open-blink-HALTED, .open-blink-WARNING, .open-blink-DEGRADED
+.open-blink, .open-blink-ERROR, .open-blink-HALTED, .open-blink-WARNING, .open-blink-DEGRADED, .open-blink-EXPIRED
 , .open-blink-OK, .open-blink-RUNNING{
 		content: ' ';
 		position: relative;

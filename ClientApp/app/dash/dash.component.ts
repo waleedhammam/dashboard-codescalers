@@ -28,6 +28,7 @@ export class DashComponent implements OnInit {
     modal: ModalComponent;
 
     close() {
+      
         this.modal.close();
     }
 
