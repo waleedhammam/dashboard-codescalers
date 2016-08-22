@@ -1,5 +1,4 @@
 node_modules/
 .vscode/
-/ClientApp/app/**/*.js
 /ClientApp/app/**/*.js.map
 *.pyc
