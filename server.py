@@ -4,7 +4,7 @@ import json, os
 
 app = Flask(__name__, template_folder='ClientApp')
 
-""" Exposing client app folder to flask"""
+# Exposing client app folder to flask
 BASE_URL = os.path.abspath(os.path.dirname(__file__))
 CLIENT_APP_FOLDER = os.path.join(BASE_URL, "ClientApp")
 
@@ -38,8 +38,9 @@ def init():
     
 init()
 
-""" Server API"""
+# Server api
 def helper(api, environment_name, data={}):
+    """helper returns result as json object"""
     api_link = apis[api]
     env = environment_name
     d = data
@@ -48,6 +49,7 @@ def helper(api, environment_name, data={}):
     return res
     
 def clean_detailed_status(detailed_status):
+    """convert detailed status to lists to handle in angular2"""
     data = detailed_status['categories']
     res_data = []
     for category in data.keys():
@@ -57,6 +59,7 @@ def clean_detailed_status(detailed_status):
     return res_data
 
 def get_machines_id():
+    """get all macines ids"""
     status_summary = list(helper('getStatusSummary', '').values())
     ids = map(lambda machine : machine['nid'], status_summary)
     return ids    
@@ -72,7 +75,6 @@ def get_all_machines_details():
     return jsonify(all_details)
 
 #sends the environments to the client 
-
 @app.route("/")
 def main_page():
     return render_template("index.html")
