@@ -23,7 +23,7 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: #E3F2FD; /* Fallback color */
+    background-color: #FFFFFE; /* Fallback color */
 }
 
 /* Modal Content/Box */
@@ -229,7 +229,7 @@ content: "\f06a";
       color: orangered;
     }
 
-.status-OK :before{
+.status-OK:before{
 	content: "\f058";
       color: seagreen;
     }
@@ -237,6 +237,7 @@ content: "\f06a";
 	content: "\f058";
       color: blue;
     }
+
 
 .open-blink, .open-blink-ERROR, .open-blink-HALTED, .open-blink-WARNING, .open-blink-DEGRADED, .open-blink-EXPIRED
 , .open-blink-OK, .open-blink-RUNNING{
