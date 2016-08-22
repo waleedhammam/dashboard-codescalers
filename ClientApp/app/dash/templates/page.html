@@ -4,7 +4,7 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 <!--Main Style-->
-<link rel="stylesheet" type="text/css" href="css/cardio.css">
+<link rel="stylesheet" type="text/css" href="css/dashstyles.css">
 <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
 
@@ -16,13 +16,16 @@
                 <!--add env status logo-->
             </div>
             <h4 class="heading">{{env.name}}</h4>
-            <div *ngIf="env.summary">
-                <p class="description" *ngFor="let machine of env.summary">
+            <div class="machines" *ngIf="env.summary">
+                <div class="description" *ngFor="let machine of env.summary">
+
+                <div class="well well-sm"><a (click)="expandMachine(env.name, machine)">{{machine.name}}</a>
                     <span class="open-blink open-blink-{{machine.status}}" (click)="expandMachine(env.name, machine)"
                         data-toggle="tooltip" data-placement="top" title={{machine.name}}></span>
+                    </div>
 
 
-                </p>
+                </div>
             </div>
         </div>
     </div>
