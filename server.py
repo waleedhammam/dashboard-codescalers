@@ -57,7 +57,7 @@ def clean_detailed_status(detailed_status):
     return res_data
 
 def get_machines_id():
-    status_summary = helper('getStatusSummary', '').values()
+    status_summary = list(helper('getStatusSummary', '').values())
     ids = map(lambda machine : machine['nid'], status_summary)
     return ids    
 
@@ -88,7 +88,7 @@ def getDetailedStatus():
 @app.route("/getStatusSummary")
 def getStatusSummary():
     environment = request.args.get('environment')
-    machines = helper('getStatusSummary', environment).values()
+    machines = list(helper('getStatusSummary', environment).values())
     return jsonify(machines)
      
 @app.route("/getOverallStatus")

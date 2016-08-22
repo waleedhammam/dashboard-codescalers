@@ -24,12 +24,13 @@ export class DashComponent implements OnInit {
   Id;
 
 
+
     @ViewChild('modal')
     modal: ModalComponent;
 
     close() {
-      
         this.modal.close();
+        this.expandedMachine = null;
     }
 
     open() {
@@ -43,16 +44,19 @@ export class DashComponent implements OnInit {
     this.getEnvironments().then((Envs) =>{
         this.getAllData(Envs,this.timeoutTheDetails.bind(this,Envs))
    });
-
-
-
   }
+
+
+   expandMachine(envname, machine){
+     this.getDetailedStatus(envname, machine);
+     this.expandedMachine = machine;
+     this.modal.open();
+   }
+
 
   getAllData(Envs,Callback) {
 
     Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback)
-
-
   }
 
 

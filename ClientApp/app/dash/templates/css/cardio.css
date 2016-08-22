@@ -173,7 +173,7 @@ h6 {
     }
 
 .status-ERROR:before {
-	content: "\f119";
+	content: "\f06a";
       color: red;
 }
 .status-EXPIRED:before {
@@ -181,7 +181,7 @@ h6 {
       color: black;
 }
 .status-HALTED:before{
-content: "\f119";
+content: "\f06a";
   color: red;
 }
 .status-WARNING:before{
@@ -195,11 +195,11 @@ content: "\f119";
     }
 
 .status-OK :before{
-	content: "\f118";
+	content: "\f058";
       color: seagreen;
     }
 .status-RUNNING:before{
-	content: "\f118";
+	content: "\f058";
       color: blue;
     }
 
@@ -212,20 +212,11 @@ content: "\f119";
 		float: left;
 		width: 14px;
 		height: 14px;
-		margin: 0 20px;
+		margin: 10px 15px;
 		background-color: orangered;
 		-webkit-border-radius: 50%;
 		-moz-border-radius: 50%;
 		border-radius: 50%;
-		-webkit-animation-name: tada;
-		-moz-animation-name: tada;
-		animation-name: tada;
-		-webkit-animation-duration: 1s;
-		-moz-animation-duration: 1s;
-		animation-duration: 1s;
-		-webkit-animation-iteration-count: infinite;
-		-moz-animation-iteration-count: infinite;
-		animation-iteration-count: infinite;
 	}
 .open-blink-ERROR {
       background: red;
