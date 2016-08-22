@@ -1,37 +1,50 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+
+
+.navbar {
+	text-align: center;
+	background-color: #0D47A1;
+	color: white;
+	height: 80px;
+}
+.navbar-header{
+	position: relative;
+	top: 10px;
+	left: 45%;
+	color: white;
+}
+.navbar-fixed-top{
+	z-index: 100;
+}
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: #E3F2FD; /* Fallback color */
 }
 
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.modal-title{
+	margin-top: 3%;
+	color:black;
+	text-align: center;
 }
 
-.close:hover,
-.close:focus {
+modal-footer{
+	text-align: center;
+}
+
+.close:hover, .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -46,6 +59,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+
 
 /* Typography */
 p {
@@ -75,6 +90,7 @@ h2 {
 
 h3 {
 	font-size: 30px;
+	color: #FFF;
 }
 
 h4 {

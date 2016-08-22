@@ -6,3 +6,9 @@ h1 {
 body {
   margin: 2em;
 }
+img{
+  height: 128px;
+  width: 128px;
+  display: block;
+  margin: 35% auto;
+}
