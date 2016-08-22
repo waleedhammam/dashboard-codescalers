@@ -1,5 +1,12 @@
 {
    "envs": [
+      {
+     "name":"",
+     "url":"",
+     "login":"",
+     "password":"",
+     "login_url":""
+     }
     ],
     "apis":{
         "getDetailedStatus":"/restmachine/system/health/getDetailedStatus",
