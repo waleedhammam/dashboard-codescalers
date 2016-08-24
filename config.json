@@ -11,6 +11,7 @@
     "apis":{
         "getDetailedStatus":"/restmachine/system/health/getDetailedStatus",
         "getOverallStatus":"/restmachine/system/health/getOverallStatus",
-        "getStatusSummary":"/restmachine/system/health/getStatusSummary"
+        "getStatusSummary":"/restmachine/system/health/getStatusSummary",
+        "login_url":"/restmachine/system/usermanager/authenticate"
     }
 }
