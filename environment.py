@@ -4,7 +4,7 @@ class Environment:
     def __init__(self, username, password, login_url, url):
         self.username = username
         self.password = password
-        self.login_url = login_url
+        self.login_url = url+login_url 
         self.url = url
         self.session = self.authenticate()
 
@@ -15,4 +15,8 @@ class Environment:
 
     def get_details(self, api_link, data):
         result = self.session.post(self.url + api_link, data=data)
-        return result.json()
+        try:
+            return result.json()
+        except:
+            print('Erro hapependd at %s' % api_link)
+            return {}

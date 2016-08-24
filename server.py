@@ -24,12 +24,12 @@ def init():
     with open('config.json') as json_data_file:
         data = json.load(json_data_file)
         envs = data['envs']
+        login_url = data['apis']['login_url']
         env_list = []
         for env in envs :
             env_list.append(env)
             username = env['login']
             passwd = env['password']
-            login_url = env['login_url']
             url = env['url']
 
             environments[env['name']] = Environment(username, passwd, login_url, url)
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     from time import sleep
     process = subprocess.Popen(["bash", "-c", 
     """cd ClientApp; tsc -w"""])
-    app.run(host= '0.0.0.0', threaded=True)
+    app.run(host= '0.0.0.0', port=5001, threaded=True)
     process.terminate()
     sleep(1)
     process.kill()
