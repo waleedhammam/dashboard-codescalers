@@ -18,10 +18,10 @@ class Environment:
 
 
     def get_details(self, api_link, data):
-        if self.session:
+        if self.session is not None :
             result = self.session.post(self.url + api_link, data=data)
         else:
-            return {}
+            print('Erro hapependd at %s' % api_link)
         try:
             return result.json()
         except:

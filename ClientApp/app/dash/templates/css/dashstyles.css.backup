@@ -114,7 +114,7 @@ h6 {
 	height: 300px;
 	max-height: 300px;
 	margin: 30px 0;
-	
+
 	text-align: center;
 	border: 1px solid #ddd;
 	-webkit-transition: all 0.3s ease;
@@ -157,7 +157,7 @@ h6 {
 
 .machines {
 	display: none;
-	
+
 }
 .service:hover .machines,.opend .machines {
 	margin-top: -65px;
@@ -179,11 +179,11 @@ h6 {
 }
 
 .description a{
-	cursor: pointer;	
+	cursor: pointer;
 }
 
 .service:hover .description, .opend .description{
-	
+
 	opacity: 1;
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
@@ -284,7 +284,7 @@ content: "\f06a";
       background: seagreen;
     }
 /**
-* fixing font location for angular2 
+* fixing font location for angular2
 * to be client-app/app/dash/templates/fonts instead of /fonts
 */
 @font-face {
@@ -294,6 +294,6 @@ content: "\f06a";
 	format('embedded-opentype'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.woff2?v=4.6.3')
 	format('woff2'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.woff?v=4.6.3')
 	format('woff'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.ttf?v=4.6.3')
-	format('truetype'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') 
+	format('truetype'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular')
 	format('svg');font-weight:normal;font-style:normal
 }

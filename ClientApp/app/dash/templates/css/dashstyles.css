@@ -92,16 +92,16 @@ h4 {
 .service:hover {
 	border-color: #00a8ff;
 }
-.service:hover .icon-holder {
+.service:hover .icon-holder ,.opend .icon-holder {
 	top: -30px;
 }
-.service:hover .heading {
+.service:hover .heading, .opend .heading{
 	top: -65px;
 }
 .machines {
 	display: none;
 }
-.service:hover .machines {
+.service:hover .machines, .opend .machines {
 	margin-top: -65px;
 	overflow-y: scroll;
 	max-height: 200px;
@@ -120,7 +120,7 @@ h4 {
 .description a{
 	cursor: pointer;
 }
-.service:hover .description{
+.service:hover .description, .opend .description{
 	opacity: 1;
 	-webkit-transform: scale(1);
 	-ms-transform: scale(1);
