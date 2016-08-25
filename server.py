@@ -34,8 +34,8 @@ def init():
 
             environments[env['name']] = Environment(username, passwd, login_url, url)
         apis = data['apis']
-        
-    
+
+
 init()
 
 # Server api
@@ -45,9 +45,9 @@ def helper(api, environment_name, data={}):
     env = environment_name
     d = data
 
-    res = environments[environment_name].get_details(api_link, data)   
+    res = environments[environment_name].get_details(api_link, data)
     return res
-    
+
 def clean_detailed_status(detailed_status):
     """convert detailed status to lists to handle in angular2"""
     data = detailed_status['categories']
@@ -62,7 +62,7 @@ def get_machines_id():
     """get all macines ids"""
     status_summary = list(helper('getStatusSummary', '').values())
     ids = map(lambda machine : machine['nid'], status_summary)
-    return ids    
+    return ids
 
 @app.route("/allDetails")
 def get_all_machines_details():
@@ -74,7 +74,7 @@ def get_all_machines_details():
         all_details[i] = machine_details
     return jsonify(all_details)
 
-#sends the environments to the client 
+#sends the environments to the client
 @app.route("/")
 def main_page():
     return render_template("index.html")
@@ -86,13 +86,13 @@ def getDetailedStatus():
     temp = helper('getDetailedStatus',environment, {'nid':nid})
     res = clean_detailed_status(temp)
     return jsonify(res)
-     
+
 @app.route("/getStatusSummary")
 def getStatusSummary():
     environment = request.args.get('environment')
     machines = list(helper('getStatusSummary', environment).values())
     return jsonify(machines)
-     
+
 @app.route("/getOverallStatus")
 def getOverallStatus():
     environment = request.args.get('environment')
@@ -110,11 +110,11 @@ def send_environments():
         env_item['status_summary'] = []
         env_list[env] = env_item
     return jsonify(env_list)
-     
+
 if __name__ == "__main__":
     import subprocess
     from time import sleep
-    process = subprocess.Popen(["bash", "-c", 
+    process = subprocess.Popen(["bash", "-c",
     """cd ClientApp; tsc -w"""])
     app.run(host= '0.0.0.0', port=5001, threaded=True)
     process.terminate()
