@@ -133,6 +133,11 @@ h4 {
 	padding: 9px 0px;
 }
 
+.no-status:before{
+	font-family: 'FontAwesome';
+	 content: "\f110";
+		color: black;
+}
 .status:before, .status-ERROR:before, .status-HALTED:before, .status-WARNING:before,
   .status-DEGRADED:before, .status-OK:before, .status-RUNNING:before{
  	 font-family: 'FontAwesome';

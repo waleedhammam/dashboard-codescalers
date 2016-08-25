@@ -22,7 +22,7 @@
         <div class="col-md-3" *ngFor="let env of Environments2">
             <div class="service" (mouseenter)='getStatusSummary(env.name)' (click)='env.expanded = !env.expanded' [class.opend]='env.expanded'>
                 <div class="icon-holder">
-                    <span class="fa status-{{env.state}} fa-3x"></span>
+                    <span class="fa no-status status-{{env.state}} fa-3x"></span>
                     <!--add env status logo-->
                 </div>
                 <h4 class="heading">{{env.name}}</h4>
