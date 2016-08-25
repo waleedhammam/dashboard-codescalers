@@ -2,14 +2,16 @@
 	text-align: center;
 	background-color: #0D47A1;
 	color: white;
-	height: 80px;
+	height: 90px;
 }
-.navbar-header{
-	position: relative;
-	top: 10px;
-	left: 40%;
+.navbar-header {
+    float: left;
+    text-align: center;
+    width: 100%;
 	color: white;
 }
+.navbar-brand {float:none;}
+
 .navbar-fixed-top{
 	z-index: 100;
 }
@@ -165,7 +167,7 @@ h6 {
 }
 
 .service .description {
-	width: 80%;
+	width: 90%;
 	margin: 0 auto;
 	opacity: 0;
 	-webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -186,6 +188,9 @@ h6 {
 
 .well{
 	margin-bottom: 0px;
+}
+.well-sm{
+	padding: 9px 0px;
 }
 /*
  fa-smile-o "\f118"
@@ -210,7 +215,7 @@ h6 {
 }
 .status-EXPIRED:before {
 	content: "\f06a";
-      color: black;
+      color: gray;
 }
 .status-HALTED:before{
 content: "\f06a";
