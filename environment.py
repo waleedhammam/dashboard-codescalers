@@ -18,7 +18,10 @@ class Environment:
 
 
     def get_details(self, api_link, data):
-        result = self.session.post(self.url + api_link, data=data)
+        if self.session:
+            result = self.session.post(self.url + api_link, data=data)
+        else:
+            return {}
         try:
             return result.json()
         except:
