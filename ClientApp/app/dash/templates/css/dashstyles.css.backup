@@ -1,0 +1,299 @@
+.navbar {
+	text-align: center;
+	background-color: #0D47A1;
+	color: white;
+	height: 90px;
+}
+.navbar-header {
+    float: left;
+    text-align: center;
+    width: 100%;
+	color: white;
+}
+.navbar-brand {float:none;}
+
+.navbar-fixed-top{
+	z-index: 100;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #FFFFFE; /* Fallback color */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.modal-title{
+	margin-top: 3%;
+	color:black;
+	text-align: center;
+}
+
+modal-footer{
+	text-align: center;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	overflow-x: hidden;
+	color: #2a3237;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+
+/* Typography */
+p {
+	font-size: 18px;
+	line-height: 1.5;
+	color: #8a8e91;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Arial, Helvetica, sans-serif;
+	position: relative;
+	margin: 10px 0;
+}
+
+h1 {
+	font-size: 60px;
+}
+
+h2 {
+	font-size: 48px;
+}
+
+h3 {
+	font-size: 30px;
+	color: #FFF;
+}
+
+h4 {
+	font-size: 24px;
+}
+
+h5 {
+	font-size: 18px;
+}
+
+h6 {
+	font-size: 16px;
+}
+
+/* environments */
+.services {
+	margin: 70px 0;
+}
+
+.service {
+	width: 100%;
+	height: 300px;
+	max-height: 300px;
+	margin: 30px 0;
+	
+	text-align: center;
+	border: 1px solid #ddd;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.service .icon-holder {
+	position: relative;
+	top: 100px;
+	display: inline-block;
+	margin-bottom: 40px;
+	padding: 10px;
+	background: white;
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.service .heading {
+	position: relative;
+	top: 80px;
+	-webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.service .icon-holder > img.icon {
+	width: 40px;
+}
+
+.service:hover {
+	border-color: #00a8ff;
+}
+
+.service:hover .icon-holder, .opend .icon-holder {
+	top: -30px;
+}
+
+.service:hover .heading , .opend .heading {
+	top: -65px;
+}
+
+.machines {
+	display: none;
+	
+}
+.service:hover .machines,.opend .machines {
+	margin-top: -65px;
+	overflow-y: scroll;
+	max-height: 200px;
+	display: block;
+}
+
+
+.service .description {
+	width: 90%;
+	margin: 0 auto;
+	opacity: 0;
+	-webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0);
+}
+
+.description a{
+	cursor: pointer;	
+}
+
+.service:hover .description, .opend .description{
+	
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+
+.well{
+	margin-bottom: 0px;
+}
+.well-sm{
+	padding: 9px 0px;
+}
+/*
+ fa-smile-o "\f118"
+ fa-frown-o "\f119"
+  fa-exclamation-circle "\f06a"
+ */
+ .icon:before {
+  font-family: 'FontAwesome';
+  content: "\f119";
+}
+
+.status:before, .status-ERROR:before, .status-HALTED:before, .status-WARNING:before,
+ .status-DEGRADED:before, .status-OK:before, .status-RUNNING:before{
+	 font-family: 'FontAwesome';
+	  content: "\f06a";
+      color: orangered;
+    }
+
+.status-ERROR:before {
+	content: "\f06a";
+      color: red;
+}
+.status-EXPIRED:before {
+	content: "\f06a";
+      color: gray;
+}
+.status-HALTED:before{
+content: "\f06a";
+  color: red;
+}
+.status-WARNING:before{
+	content: "\f06a";
+      color: #FFDD33;
+    }
+
+  .status-DEGRADED:before{
+	  content: "\f06a";
+      color: orangered;
+    }
+
+.status-OK:before{
+	content: "\f058";
+      color: seagreen;
+    }
+.status-RUNNING:before{
+	content: "\f058";
+      color: blue;
+    }
+
+
+.open-blink, .open-blink-ERROR, .open-blink-HALTED, .open-blink-WARNING, .open-blink-DEGRADED, .open-blink-EXPIRED
+, .open-blink-OK, .open-blink-RUNNING{
+		content: ' ';
+		position: relative;
+		display: inline-block;
+		float: left;
+		width: 14px;
+		height: 14px;
+		margin: 5px 15px;
+		background-color: orangered;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		border-radius: 50%;
+	}
+.open-blink-ERROR {
+      background: red;
+}
+
+.open-blink-HALTED{
+  background: red;
+}
+.open-blink-WARNING {
+      background: #FFDD33;
+    }
+
+  .open-blink-DEGRADED {
+      background: orangered;
+    }
+	.open-blink-EXPIRED {
+	background: grey;
+}
+
+.open-blink-OK  {
+      background: seagreen;
+    }
+.open-blink-RUNNING {
+      background: seagreen;
+    }
+/**
+* fixing font location for angular2 
+* to be client-app/app/dash/templates/fonts instead of /fonts
+*/
+@font-face {
+	font-family:'FontAwesome';
+	src:url('client-app/app/dash/templates/fonts/fontawesome-webfont.eot?v=4.6.3');
+	src:url('client-app/app/dash/templates/fonts/fontawesome-webfont.eot?#iefix&v=4.6.3')
+	format('embedded-opentype'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.woff2?v=4.6.3')
+	format('woff2'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.woff?v=4.6.3')
+	format('woff'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.ttf?v=4.6.3')
+	format('truetype'),url('client-app/app/dash/templates/fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') 
+	format('svg');font-weight:normal;font-style:normal
+}
