@@ -51,7 +51,7 @@ modal-footer{
 
 
 body {
-	font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	overflow-x: hidden;
 	color: #2a3237;
@@ -74,7 +74,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'Roboto', 'Avenir Next', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	position: relative;
 	margin: 10px 0;
 }
@@ -166,6 +166,7 @@ h6 {
 	display: block;
 }
 
+
 .service .description {
 	width: 90%;
 	margin: 0 auto;
@@ -177,6 +178,9 @@ h6 {
 	transform: scale(0);
 }
 
+.description a{
+	cursor: pointer;	
+}
 
 .service:hover .description, .opend .description{
 	
