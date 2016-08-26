@@ -17,7 +17,7 @@ client app  in angular2
 `pip3 install -r requirments.txt`
 
 3- then dive into ClientApp:
-`npm install`
+`npm install`&&
 `npm run typings install`
 
 (**note** you maybe need to do `sudo` for the third step if you are running on linux)
