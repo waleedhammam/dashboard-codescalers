@@ -21,7 +21,9 @@ class Environment:
         if self.session is not None :
             result = self.session.post(self.url + api_link, data=data)
         else:
-            print('Erro hapependd at %s' % api_link)
+            print('Can not open session at %s trying again ..' % api_link)
+            self.session = self.authenticate()
+
         try:
             return result.json()
         except:
