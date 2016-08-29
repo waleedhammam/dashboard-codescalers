@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild}        from '@angular/core';
-import {CORE_DIRECTIVES} from '@angular/common';
+import { CORE_DIRECTIVES } from '@angular/common';
 import { HTTP_PROVIDERS, Http }  from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { DashService } from './dash.service';
 import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-
 
 @Component({
   selector: 'my-dash',
@@ -23,20 +22,22 @@ export class DashComponent implements OnInit {
   DetailedStatus;
   Id;
 
+  @ViewChild('modal')
+  modal: ModalComponent;
 
+  close() {
+    this.modal.close();
+    this.expandedMachine = null;
+  }
 
-    @ViewChild('modal')
-    modal: ModalComponent;
-
-    close() {
-        this.modal.close();
-        this.expandedMachine = null;
-    }
-
-    open() {
-        this.modal.open();
-    }
+  open() {
+    this.modal.open();
+  }
   constructor(private dashService: DashService, private http: Http) {
+  }
+
+  auth() {
+    this.dashService.startOAuthFlow( () => this.ngOnInit() );
 
   }
 
@@ -46,13 +47,11 @@ export class DashComponent implements OnInit {
    });
   }
 
-
-   expandMachine(envname, machine){
-     this.getDetailedStatus(envname, machine);
-     this.expandedMachine = machine;
-     this.modal.open();
-   }
-
+  expandMachine(envname, machine) {
+    this.getDetailedStatus(envname, machine);
+    this.expandedMachine = machine;
+    this.modal.open();
+  }
 
   getAllData(Envs,Callback) {
 
@@ -64,7 +63,7 @@ export class DashComponent implements OnInit {
     setTimeout(this.getAllData.bind(this,Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
   }
 
-  // gets the state of every machine        
+  // gets the state of every machine
   getOverallStatus(Environment) {
 
     return this.dashService.getOverallStatus(Environment).then(
@@ -77,7 +76,7 @@ export class DashComponent implements OnInit {
           return this.Environments[Env].expanded
         }
         let ExpandedEnvs = Object.keys(this.Environments).filter(isExpanded.bind(this))
-        
+
         return ExpandedEnvs
       }
     ).then((Environments) => {
@@ -96,9 +95,9 @@ export class DashComponent implements OnInit {
       let Summary = response.json();
 
       for (let i in Expanded) {
-        if (Summary[i] != undefined){
-        Summary[i].expanded = Expanded[i]
-        Summary[i].details = Details[i]
+        if (Summary[i] != undefined) {
+          Summary[i].expanded = Expanded[i]
+          Summary[i].details = Details[i]
         }
       }
 
@@ -134,15 +133,16 @@ export class DashComponent implements OnInit {
 
   getEnvironments() {
     return this.dashService.getEnvironments().then((response) => {
+
       this.Environments = response.json();
+      this.Environments2 = Object.keys(this.Environments).map(name => this.Environments[name]);
+
       if (!this.Environments2) {
-        this.Environments2 = Object.keys(this.Environments).map(name => this.Environments[name]);
         this.Environments2.map(Env => Env.expanded = false)
       }
 
-     return this.Environments2.map(Env => Env.name)
+      return this.Environments2.map(Env => Env.name)
     })
   }
 
 }
-

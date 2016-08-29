@@ -10,34 +10,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var http_2 = require('@angular/http');
 var DashService = (function () {
     function DashService(http) {
         this.http = http;
     }
+    DashService.prototype.startOAuthFlow = function (callback) {
+        var _this = this;
+        var options = 'left=100,top=10,width=400,height=500';
+        var oauth = window.open('/connect-auth', null, options);
+        var x = function (jwt) {
+            _this.jwt = jwt;
+            callback();
+        };
+        window['setJWT'] = x.bind(this);
+    };
     DashService.prototype.getStatusSummary = function (environment) {
+        var headers = new http_2.Headers();
+        headers.append('Authorization', 'token ' + this.jwt);
         var dashUrl = '/getStatusSummary?environment=' + environment;
-        return this.http.request(dashUrl)
+        return this.http.request(dashUrl, { headers: headers })
             .debounceTime(400)
             .distinctUntilChanged()
             .toPromise();
     };
     DashService.prototype.getOverallStatus = function (environment) {
+        var headers = new http_2.Headers();
+        headers.append('Authorization', 'token ' + this.jwt);
         var dashUrl = '/getOverallStatus?environment=' + environment;
-        return this.http.request(dashUrl)
+        return this.http.request(dashUrl, { headers: headers })
             .debounceTime(400)
             .distinctUntilChanged()
             .toPromise();
     };
     DashService.prototype.getDetailedStatus = function (envionment, nid) {
+        var headers = new http_2.Headers();
+        headers.append('Authorization', 'token ' + this.jwt);
         var dashUrl = '/getDetailedStatus?environment=' + envionment + '&nid=' + nid;
-        return this.http.request(dashUrl)
+        return this.http.request(dashUrl, { headers: headers })
             .debounceTime(400)
             .distinctUntilChanged()
             .toPromise();
     };
     DashService.prototype.getEnvironments = function () {
+        var headers = new http_2.Headers();
+        headers.append('Authorization', 'token ' + this.jwt);
         var dashUrl = '/environments';
-        return this.http.request(dashUrl)
+        return this.http.request(dashUrl, { headers: headers })
             .debounceTime(400)
             .distinctUntilChanged()
             .toPromise();

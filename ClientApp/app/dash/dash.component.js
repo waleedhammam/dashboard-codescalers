@@ -26,6 +26,10 @@ var DashComponent = (function () {
     DashComponent.prototype.open = function () {
         this.modal.open();
     };
+    DashComponent.prototype.auth = function () {
+        var _this = this;
+        this.dashService.startOAuthFlow(function () { return _this.ngOnInit(); });
+    };
     DashComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.getEnvironments().then(function (Envs) {
@@ -43,7 +47,7 @@ var DashComponent = (function () {
     DashComponent.prototype.timeoutTheDetails = function (Envs) {
         setTimeout(this.getAllData.bind(this, Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
     };
-    // gets the state of every machine        
+    // gets the state of every machine
     DashComponent.prototype.getOverallStatus = function (Environment) {
         var _this = this;
         return this.dashService.getOverallStatus(Environment).then(function (response) {
@@ -104,8 +108,8 @@ var DashComponent = (function () {
         var _this = this;
         return this.dashService.getEnvironments().then(function (response) {
             _this.Environments = response.json();
+            _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
             if (!_this.Environments2) {
-                _this.Environments2 = Object.keys(_this.Environments).map(function (name) { return _this.Environments[name]; });
                 _this.Environments2.map(function (Env) { return Env.expanded = false; });
             }
             return _this.Environments2.map(function (Env) { return Env.name; });
