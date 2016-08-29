@@ -17,7 +17,12 @@
     </div>
 </nav>
 <br><br><br><br>
-<button type="button" class="btn btn-primary" (click)="auth();">Login</button>
+<div *ngIf=token>
+<button type="button" class="btn btn-primary btn-lg" (click)="auth();">Login</button>
+</div>
+<div *ngIf=!token>
+<button type="button" class="btn btn-danger btn-lg" (click)="deAuth();">Logout</button>
+</div>
 
 <div class="container-fluid">
     <div class="row services">

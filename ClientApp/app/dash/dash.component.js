@@ -18,6 +18,7 @@ var DashComponent = (function () {
         this.http = http;
         this.Nid = '';
         this.OverallStatus = {};
+        this.token = true;
     }
     DashComponent.prototype.close = function () {
         this.modal.close();
@@ -28,7 +29,12 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.auth = function () {
         var _this = this;
-        this.dashService.startOAuthFlow(function () { return _this.ngOnInit(); });
+        this.dashService.startOAuthFlow(function () { _this.token = false; _this.ngOnInit(); });
+    };
+    DashComponent.prototype.deAuth = function () {
+        this.dashService.jwt = undefined;
+        this.token = true;
+        location.reload();
     };
     DashComponent.prototype.ngOnInit = function () {
         var _this = this;
