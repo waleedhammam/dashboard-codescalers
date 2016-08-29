@@ -117,6 +117,9 @@ h4 {
 	-ms-transform: scale(0);
 	transform: scale(0);
 }
+.heading a{
+	cursor: pointer;
+}
 .description a{
 	cursor: pointer;
 }

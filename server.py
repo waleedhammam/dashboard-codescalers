@@ -150,6 +150,7 @@ def send_environments():
     for env in envs.keys():
         env_item = helper('getOverallStatus', env)
         env_item['name'] = env
+        env_item['url'] = envs[env].url
         env_item['status_summary'] = []
         env_list[env] = env_item
     return jsonify(env_list)

@@ -144,5 +144,4 @@ export class DashComponent implements OnInit {
       return this.Environments2.map(Env => Env.name)
     })
   }
-
 }

@@ -51,7 +51,6 @@ export class DashService {
       .debounceTime(400)
       .distinctUntilChanged()
       .toPromise();
-
   }
 
   getEnvironments() {
