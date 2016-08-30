@@ -16,7 +16,6 @@ var DashComponent = (function () {
     function DashComponent(dashService, http) {
         this.dashService = dashService;
         this.http = http;
-        this.Nid = '';
         this.OverallStatus = {};
         this.token = true;
     }

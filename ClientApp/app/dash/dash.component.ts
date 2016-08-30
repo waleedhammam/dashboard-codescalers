@@ -13,7 +13,6 @@ import { MODAL_DIRECTIVES, ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 })
 
 export class DashComponent implements OnInit {
-  Nid = '';
   Environments;
   Environments2;
   expandedMachine;
@@ -33,22 +32,23 @@ export class DashComponent implements OnInit {
   open() {
     this.modal.open();
   }
-  constructor(private dashService: DashService, private http: Http) {
-  }
+
+  constructor(private dashService: DashService, private http: Http) { }
+
   token = true;
   auth() {
-    this.dashService.startOAuthFlow( () => { this.token = false; this.ngOnInit()} );
+    this.dashService.startOAuthFlow(() => { this.token = false; this.ngOnInit() });
   }
-  deAuth(){
+  deAuth() {
     this.dashService.jwt = undefined;
     this.token = true;
     location.reload()
   }
 
   ngOnInit() {
-    this.getEnvironments().then((Envs) =>{
-        this.getAllData(Envs,this.timeoutTheDetails.bind(this,Envs))
-   });
+    this.getEnvironments().then((Envs) => {
+      this.getAllData(Envs, this.timeoutTheDetails.bind(this, Envs))
+    });
   }
 
   expandMachine(envname, machine) {
@@ -57,19 +57,16 @@ export class DashComponent implements OnInit {
     this.modal.open();
   }
 
-  getAllData(Envs,Callback) {
-
+  getAllData(Envs, Callback) {
     Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback)
   }
 
-
   timeoutTheDetails(Envs) {
-    setTimeout(this.getAllData.bind(this,Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
+    setTimeout(this.getAllData.bind(this, Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
   }
 
   // gets the state of every machine
   getOverallStatus(Environment) {
-
     return this.dashService.getOverallStatus(Environment).then(
       (response) => {
         let Expanded = this.Environments[Environment].expanded
@@ -80,13 +77,11 @@ export class DashComponent implements OnInit {
           return this.Environments[Env].expanded
         }
         let ExpandedEnvs = Object.keys(this.Environments).filter(isExpanded.bind(this))
-
         return ExpandedEnvs
       }
     ).then((Environments) => {
       return Promise.all(Environments.map(this.getStatusSummary.bind(this)))
     })
-
   }
 
   // gets the basic info of every machine in the Environment
@@ -97,23 +92,19 @@ export class DashComponent implements OnInit {
       let Expanded = Env.summary ? Env.summary.map(m => m.expanded) : [];
       let Details = Env.summary ? Env.summary.map(m => m.details) : [];
       let Summary = response.json();
-
       for (let i in Expanded) {
         if (Summary[i] != undefined) {
           Summary[i].expanded = Expanded[i]
           Summary[i].details = Details[i]
         }
       }
-
       for (let Machine in Summary) {
         if (Expanded[Machine]) {
         }
       }
-
       function isExpanded(_, Machine) {
         return Expanded[Machine]
       }
-
       let ExpandedMachines = Summary.filter(isExpanded)
       if (ExpandedMachines.length) {
         this.expandedMachine = ExpandedMachines[0]
@@ -128,7 +119,6 @@ export class DashComponent implements OnInit {
     return this.dashService.getDetailedStatus(Environment, Machine.nid).then((response) => {
       let Expanded = Machine.details ? Machine.details.map(m => m.expanded) : [];
       Machine.details = response.json();
-
       for (let i in Expanded) {
         Machine.details[i].expanded = Expanded[i]
       }
@@ -137,14 +127,11 @@ export class DashComponent implements OnInit {
 
   getEnvironments() {
     return this.dashService.getEnvironments().then((response) => {
-
       this.Environments = response.json();
       this.Environments2 = Object.keys(this.Environments).map(name => this.Environments[name]);
-
       if (!this.Environments2) {
         this.Environments2.map(Env => Env.expanded = false)
       }
-
       return this.Environments2.map(Env => Env.name)
     })
   }
