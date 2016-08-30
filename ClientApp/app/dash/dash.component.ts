@@ -35,14 +35,13 @@ export class DashComponent implements OnInit {
   constructor(private dashService: DashService, private http: Http) {}
   token =  !window.localStorage['jwt'];
   auth() {
-      this.dashService.startOAuthFlow( () => { this.token = false; this.ngOnInit()} );
+      this.dashService.startOAuthFlow( () => { this.ngOnInit()} );
 
   }
   
   deAuth() {
     this.dashService.jwt = undefined;
-    window.localStorage['jwt'] = undefined;
-    this.token = true;
+    delete window.localStorage['jwt'];
     location.reload()
   }
 

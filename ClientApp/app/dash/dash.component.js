@@ -28,12 +28,11 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.auth = function () {
         var _this = this;
-        this.dashService.startOAuthFlow(function () { _this.token = false; _this.ngOnInit(); });
+        this.dashService.startOAuthFlow(function () { _this.ngOnInit(); });
     };
     DashComponent.prototype.deAuth = function () {
         this.dashService.jwt = undefined;
-        window.localStorage['jwt'] = undefined;
-        this.token = true;
+        delete window.localStorage['jwt'];
         location.reload();
     };
     DashComponent.prototype.ngOnInit = function () {
