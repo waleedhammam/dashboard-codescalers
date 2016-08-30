@@ -19,10 +19,10 @@
 
 <br><br><br><br>
 <div *ngIf=token>
-<button type="button" class="btn btn-primary btn-lg" (click)="auth();">Login</button>
+<button type="button" class="btn btn-primary btn-lg btn-login" (click)="auth();">Login</button>
 </div>
 <div *ngIf=!token>
-<button type="button" class="btn btn-danger btn-lg" (click)="deAuth();">Logout</button>
+<button type="button" class="btn btn-danger btn-lg btn-logout" (click)="deAuth();">Logout</button>
 </div>
 
 <div class="container-fluid">
