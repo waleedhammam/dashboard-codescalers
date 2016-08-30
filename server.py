@@ -93,7 +93,6 @@ def get_jwt():
 
 @app.route("/callback")
 def get_code():
-    print('here code')
     code = request.args.get("code")
     if code :
         return redirect(url_for('get_jwt'))

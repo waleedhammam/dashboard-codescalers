@@ -7,7 +7,7 @@ import { Headers }          from '@angular/http';
 @Injectable()
 export class DashService {
   // save auth token
-  jwt;
+  jwt = window.localStorage['jwt'];
   constructor(private http: Http) {}
 
    startOAuthFlow(callback) {
@@ -15,6 +15,7 @@ export class DashService {
     var oauth = window.open('/connect-auth', null, options);
     var x = jwt => {
       this.jwt = jwt
+      window.localStorage['jwt'] = jwt
       callback()
     };
     window['setJWT'] = x.bind(this)
