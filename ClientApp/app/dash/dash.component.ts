@@ -20,7 +20,7 @@ export class DashComponent implements OnInit {
   StatusSummary: Object;
   DetailedStatus;
   Id;
-
+  
   @ViewChild('modal')
   modal: ModalComponent;
 
@@ -33,11 +33,12 @@ export class DashComponent implements OnInit {
     this.modal.open();
   }
   constructor(private dashService: DashService, private http: Http) {}
-  token =  window.localStorage['jwt'];
+  token =  !window.localStorage['jwt'];
   auth() {
       this.dashService.startOAuthFlow( () => { this.token = false; this.ngOnInit()} );
 
   }
+  
   deAuth() {
     this.dashService.jwt = undefined;
     window.localStorage['jwt'] = undefined;

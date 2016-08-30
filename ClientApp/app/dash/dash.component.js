@@ -16,9 +16,8 @@ var DashComponent = (function () {
     function DashComponent(dashService, http) {
         this.dashService = dashService;
         this.http = http;
-        this.Nid = '';
         this.OverallStatus = {};
-        this.token = true;
+        this.token = !window.localStorage['jwt'];
     }
     DashComponent.prototype.close = function () {
         this.modal.close();
@@ -33,6 +32,7 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.deAuth = function () {
         this.dashService.jwt = undefined;
+        window.localStorage['jwt'] = undefined;
         this.token = true;
         location.reload();
     };
