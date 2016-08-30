@@ -1,17 +1,29 @@
 {
    "envs": [
-      {
-     "name":"",
-     "url":"",
-     "login":"",
-     "password":"",
-     "login_url":""
-     }
+        {
+        "name":"",
+        "url":"",
+        "login":"",
+        "password":""
+        }
     ],
     "apis":{
         "getDetailedStatus":"/restmachine/system/health/getDetailedStatus",
         "getOverallStatus":"/restmachine/system/health/getOverallStatus",
         "getStatusSummary":"/restmachine/system/health/getStatusSummary",
-        "login_url":"/restmachine/system/usermanager/authenticate"
+	      "login_url":"/restmachine/system/usermanager/authenticate"
+    },
+    "auth":{
+      "CLIENTID":"dashboard",
+      "REDIRECTURI":"http://0.0.0.0:5001/callback",
+      "CLIENTSECRET": "",
+      "PUBLICKEY":["MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAES5X8XrfKdx9gYayFITc89wad4usrk0n2\n",
+                  "7MjiGYvqalizeSWTHEpnd7oea9IQ8T5oJjMVH5cc0H5tFSKilFFeh//wngxIyny6\n",
+                  "6+Vq5t5B0V0Ehy01+2ceEon2Y0XDkIKv"],
+      "ALGORITHM":"ES384"
+    },
+    "host":{
+      "host_ip":"0.0.0.0",
+      "host_port":"5001"
     }
 }
