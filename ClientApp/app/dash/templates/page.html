@@ -19,10 +19,10 @@
 
 <br><br><br><br>
 <div *ngIf=token>
-<button type="button" class="btn btn-primary btn-lg btn-login" (click)="auth();">Login</button>
+    <button type="button" class="btn btn-primary btn-lg btn-login" (click)="auth();">Login</button>
 </div>
 <div *ngIf=!token>
-<button type="button" class="btn btn-danger btn-lg btn-logout" (click)="deAuth();">Logout</button>
+    <button type="button" class="btn btn-danger btn-lg btn-logout" (click)="deAuth();">Logout</button>
 </div>
 
 <div class="container-fluid">
@@ -34,7 +34,7 @@
                     <!--add env status logo-->
                 </div>
                 <h4 class="heading">
-                    <span><a href="{{env.url}}">{{env.name}}</a></span>
+                    <span><a href="{{env.url}}" target="_blank">{{env.name}}</a></span>
                 </h4>
                 <div class="machines" *ngIf="env.summary" (click)='env.expanded = !env.expanded'>
                     <div class="description" *ngFor="let machine of env.summary">
@@ -43,7 +43,6 @@
                             <span class="open-blink open-blink-{{machine.status}}" (click)="expandMachine(env.name, machine)" data-toggle="tooltip" data-placement="top"
                                 title={{machine.name}}></span>
                         </div>
-
 
                     </div>
                 </div>
@@ -61,28 +60,30 @@
                 </modal-header>
                 <modal-body>
                     <div class="container">
-                    <div class="panel-group">
-                        <div class="panel panel-default" *ngFor="let category of expandedMachine.details">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" href="#collapse-{{category.name.split(' ')[0]}}-{{category.name.split(' ')[1]}}">
+                        <div class="panel-group">
+                            <div class="panel panel-default" *ngFor="let category of expandedMachine.details">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse-{{category.name.split(' ')[0]}}-{{category.name.split(' ')[1]}}">
                                     {{category.name}}
                                     <div class="open-blink open-blink-{{category.status}}"></div>
                                 </a>
-                                </h4>
-                            </div>
+                                    </h4>
+                                </div>
 
-                            <div id="collapse-{{category.name.split(' ')[0]}}-{{category.name.split(' ')[1]}}" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <li class="list-group-item" *ngFor="let data_item of category.data">
-                                        <div *ngIf="data_item" (click)="category.expanded  = !category.expanded" id="data_item.status" class="open-blink open-blink-{{data_item.status}} "></div>
-                                        {{data_item.msg}} interval : {{data_item.interval}} last : {{data_item.last}}
-                                    </li>
+                                <div id="collapse-{{category.name.split(' ')[0]}}-{{category.name.split(' ')[1]}}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <li class="list-group-item" *ngFor="let data_item of category.data">
+                                            <div *ngIf="data_item" (click)="category.expanded  = !category.expanded" id="data_item.status" class="open-blink open-blink-{{data_item.status}} "></div>
+                                            {{data_item.msg}} interval : {{data_item.interval}} last : {{data_item.last}}
+                                        </li>
+                                    </div>
                                 </div>
                             </div>
-
+                            <div class="panel-group" *ngIf="!(expandedMachine.details)">
+                                <img src="client-app/app/dash/templates/loading.gif" alt="">
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </modal-body>
                 <modal-footer>

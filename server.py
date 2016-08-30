@@ -81,7 +81,7 @@ def get_code():
             "code" : code,
             "state":state,
             "redirect_uri": REDIRECTURI,
-            "grant_type": "client_credentials",
+            # "grant_type": "authorization_code",
             "client_id" : CLIENTID,
             "client_secret": CLIENTSECRET
             }
@@ -90,6 +90,7 @@ def get_code():
             response = requests.post(url)
             response.raise_for_status()
             response = response.json()
+            print(response)
             access_token = response['access_token']
             
             return access_token
@@ -196,11 +197,5 @@ def getDetailedStatus():
     return jsonify(res)
 
 if __name__ == "__main__":
-    import subprocess
-    from time import sleep
-    process = subprocess.Popen(["bash", "-c",
-    """cd ClientApp; tsc -w"""])
     app.run(host=host_ip, port=host_port,  threaded=False)
-    process.terminate()
-    sleep(1)
-    process.kill()
+    
