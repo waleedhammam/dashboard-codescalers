@@ -44,7 +44,7 @@ with open('config.json') as json_data_file:
     PUBLICKEY = "".join(auth['PUBLICKEY'])
     ALGORITHM = auth['ALGORITHM']
     ORGANIZATION = auth['organization']
-    # host data
+
     host = data['host']
     host_ip = host['host_ip']
     host_port = host['host_port']
@@ -70,34 +70,39 @@ def make_aouth():
     login_url = login_to_idserver()
     return  redirect(login_url)
 
-# make a jwt and return it
-@app.route('/send_jwt')
-def get_jwt():
-    #get the access token
-    def get_access_token():
-        params = {
-        "grant_type": "client_credentials",
-        "client_id" : CLIENTID,
-        "client_secret": CLIENTSECRET,
-        }
-        base_url = "https://itsyou.online/v1/oauth/access_token?"
-        url = base_url + urlencode(params)
-        response = requests.post(url, verify=False)
-        response = response.json()
-        access_token = response['access_token']
-        return access_token
-    access_token = get_access_token()
-    base_url = "https://itsyou.online/v1/oauth/jwt"
-    headers = {'Authorization': 'token %s' % access_token}
-    data = {'scope': 'user:memberOf:%s' % CLIENTID}
-    response = requests.post(base_url, data=json.dumps(data), headers=headers, verify=False)
-    return '<html><script>window.opener.setJWT("%s"); window.close()</script></html>'%(response.content.decode(),)
-
 @app.route("/callback")
 def get_code():
     code = request.args.get("code")
+    state = request.args.get("state")
     if code :
-        return redirect(url_for('get_jwt'))
+        #get the access token
+        def get_access_token():
+            params = {
+            "code" : code,
+            "state":state,
+            "redirect_uri": REDIRECTURI,
+            "grant_type": "client_credentials",
+            "client_id" : CLIENTID,
+            "client_secret": CLIENTSECRET
+            }
+            base_url = "https://itsyou.online/v1/oauth/access_token?"
+            url = base_url + urlencode(params)
+            response = requests.post(url)
+            response.raise_for_status()
+            response = response.json()
+            access_token = response['access_token']
+            
+            return access_token
+        def get_jwt(access_token):
+            base_url = "https://itsyou.online/v1/oauth/jwt"
+            headers = {'Authorization': 'token %s' % access_token}
+            data = {'scope': 'user:memberOf:%s' % CLIENTID}
+            response = requests.post(base_url, data=json.dumps(data), headers=headers, verify=False)
+            return response.content.decode()
+        access_token = get_access_token()
+        jwt = get_jwt(access_token)
+        return '<html><script>window.opener.setJWT("%s"); window.close()</script></html>'%(jwt,)
+
     else :
         return False
 
