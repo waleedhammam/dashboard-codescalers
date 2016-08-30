@@ -43,6 +43,7 @@ with open('config.json') as json_data_file:
     CLIENTSECRET = auth['CLIENTSECRET']
     PUBLICKEY = "".join(auth['PUBLICKEY'])
     ALGORITHM = auth['ALGORITHM']
+    ORGANIZATION = auth['organization']
     # host data
     host = data['host']
     host_ip = host['host_ip']
@@ -55,11 +56,12 @@ def make_aouth():
     def login_to_idserver():
         from uuid import uuid4
         STATE = str(uuid4())
+        SCOPE = "user:memberof:"+ORGANIZATION
         params = {
             "response_type": "code",
             "client_id":CLIENTID,
             "redirect_uri":REDIRECTURI,
-            "scope": "user:name",
+            "scope": SCOPE,
             "state" : STATE
         }
         base_url = "https://itsyou.online/v1/oauth/authorize?"
