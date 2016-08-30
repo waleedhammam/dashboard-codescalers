@@ -14,7 +14,12 @@
 .navbar-fixed-top{
 	z-index: 100;
 }
-
+.btn-logout{
+	margin: 0% 90%;
+}
+.btn-login{
+	margin: 5% 45%;
+}
 .modal {
     display: none;
     position: fixed;
@@ -61,7 +66,7 @@ h4 {
 }
 
 .services {
-	margin: 70px 0;
+	margin: 10px 0;
 }
 .service {
 	width: 100%;
