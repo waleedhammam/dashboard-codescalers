@@ -51,6 +51,9 @@
                 </div>
             </div>
         </div>
+        <div class="row services" *ngIf="!(Environments2)">
+            <img src="client-app/app/dash/templates/loading.gif" alt="">
+        </div>
 
         <modal #modal>
             <div *ngIf="expandedMachine">
