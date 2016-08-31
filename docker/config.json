@@ -20,7 +20,8 @@
       "PUBLICKEY":["MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAES5X8XrfKdx9gYayFITc89wad4usrk0n2\n",
                   "7MjiGYvqalizeSWTHEpnd7oea9IQ8T5oJjMVH5cc0H5tFSKilFFeh//wngxIyny6\n",
                   "6+Vq5t5B0V0Ehy01+2ceEon2Y0XDkIKv"],
-      "ALGORITHM":"ES384"
+      "ALGORITHM":"ES384",
+      "organization":"dashboard"
     },
     "host":{
       "host_ip":"0.0.0.0",
