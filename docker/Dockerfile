@@ -37,4 +37,4 @@ ADD config.json dashboard-codescalers
 
 EXPOSE 5001
 
-CMD cd /dashboard-codescalers/ && python3 starter.py
+CMD cd /dashboard-codescalers/ && python3 server.py
