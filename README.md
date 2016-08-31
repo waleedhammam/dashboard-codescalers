@@ -24,6 +24,6 @@ client app  in angular2
 
 ###Running the application:
 add your configuration file as the template provided then run the server with
-`python3 server.py`
+`python3 starter.py`
 
 you also can run a [terminal client app] (https://github.com/waleedhammam/dashboard-codescalers/tree/master/terminal-client) to get monitor the environments from your terminal.
