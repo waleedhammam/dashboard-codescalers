@@ -25,6 +25,12 @@
     <button type="button" class="btn btn-danger btn-lg btn-logout" (click)="deAuth();">Logout</button>
 </div>
 
+<div class="unauth" *ngIf="aut">
+    <h2> 401: Unauthorized</h2>
+    <h5> You're not part of the organization</h5>
+    <h5> Please contact support for more details </h5>
+</div>
+
 <div class="container-fluid">
     <div class="row services">
         <div class="col-md-3" *ngFor="let env of Environments2">

@@ -16,14 +16,19 @@ var DashService = (function () {
         // save auth token
         this.jwt = window.localStorage['jwt'];
     }
-    DashService.prototype.startOAuthFlow = function (callback) {
+    DashService.prototype.startOAuthFlow = function (callback, callunauth) {
         var _this = this;
-        var options = 'left=100,top=10,width=400,height=500';
+        var options = 'left=100,top=10,width=600,height=600';
         var oauth = window.open('/connect-auth', null, options);
         var x = function (jwt) {
             _this.jwt = jwt;
             window.localStorage['jwt'] = jwt;
-            callback();
+            if (_this.jwt == "Unauthorized") {
+                callunauth();
+            }
+            else {
+                callback();
+            }
         };
         window['setJWT'] = x.bind(this);
     };

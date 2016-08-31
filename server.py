@@ -91,9 +91,11 @@ def get_code():
             response.raise_for_status()
             response = response.json()
             print(response)
-            access_token = response['access_token']
-            
-            return access_token
+            if ("user:memberof:"+ORGANIZATION) in response['scope'].split(','):
+                access_token = response['access_token']
+                return access_token
+            else:
+                return None
         def get_jwt(access_token):
             base_url = "https://itsyou.online/v1/oauth/jwt"
             headers = {'Authorization': 'token %s' % access_token}
@@ -101,8 +103,11 @@ def get_code():
             response = requests.post(base_url, data=json.dumps(data), headers=headers, verify=False)
             return response.content.decode()
         access_token = get_access_token()
-        jwt = get_jwt(access_token)
-        return '<html><script>window.opener.setJWT("%s"); window.close()</script></html>'%(jwt,)
+        if access_token:
+            jwt = get_jwt(access_token)
+            return '<html><script>window.opener.setJWT("%s"); window.close()</script></html>'%(jwt,)
+        else:
+            return "<html><script>window.opener.setJWT('Unauthorized'); window.close()</script></html>"
 
     else :
         return False
@@ -198,4 +203,3 @@ def getDetailedStatus():
 
 if __name__ == "__main__":
     app.run(host=host_ip, port=host_port,  threaded=False)
-    

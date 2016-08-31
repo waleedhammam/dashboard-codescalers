@@ -8,7 +8,8 @@ if __name__ == "__main__":
 
         i = inotify.adapters.Inotify()
 
-        i.add_watch('server.py'.encode('utf-8')) 
+        i.add_watch('server.py'.encode('utf-8'))
+        i.add_watch('config.json'.encode('utf-8'))
 
         try:
             for event in i.event_gen():
@@ -19,6 +20,7 @@ if __name__ == "__main__":
             pass
         finally:
             i.remove_watch('server.py'.encode('utf-8'))
+            i.remove_watch('config.json'.encode('utf-8')) 
 
     finally:
         p.terminate()

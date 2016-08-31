@@ -9,13 +9,17 @@ export class DashService {
   jwt = window.localStorage['jwt'];
   constructor(private http: Http) {}
 
-  startOAuthFlow(callback) {
-    var options = 'left=100,top=10,width=400,height=500';
+  startOAuthFlow(callback, callunauth) {
+    var options = 'left=100,top=10,width=600,height=600';
     var oauth = window.open('/connect-auth', null, options);
     var x = jwt => {
       this.jwt = jwt
       window.localStorage['jwt'] = jwt
-      callback()
+      if (this.jwt == "Unauthorized"){
+        callunauth()
+      } else {
+        callback()
+      }
     };
     window['setJWT'] = x.bind(this)
   }

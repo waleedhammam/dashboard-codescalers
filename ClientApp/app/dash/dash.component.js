@@ -17,7 +17,8 @@ var DashComponent = (function () {
         this.dashService = dashService;
         this.http = http;
         this.OverallStatus = {};
-        this.token = !window.localStorage['jwt'];
+        this.aut = false;
+        this.token = !(window.localStorage['jwt'] != "Unauthorized" ? window.localStorage['jwt'] : false);
     }
     DashComponent.prototype.close = function () {
         this.modal.close();
@@ -28,7 +29,11 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.auth = function () {
         var _this = this;
-        this.dashService.startOAuthFlow(function () { _this.token = false; _this.ngOnInit(); });
+        this.dashService.startOAuthFlow(function () { _this.token = false; _this.ngOnInit(); }, this.callunauth.bind(this));
+    };
+    DashComponent.prototype.callunauth = function () {
+        this.aut = true;
+        //  location.reload();
     };
     DashComponent.prototype.deAuth = function () {
         this.dashService.jwt = undefined;
