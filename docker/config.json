@@ -6,7 +6,7 @@
         "login":"",
         "password":""
         }
-        ],
+    ],
     "apis":{
         "getDetailedStatus":"/restmachine/system/health/getDetailedStatus",
         "getOverallStatus":"/restmachine/system/health/getOverallStatus",
@@ -15,8 +15,8 @@
     },
     "auth":{
       "CLIENTID":"dashboard",
-      "REDIRECTURI":"http://0.0.0.0:5001/callback",
-      "CLIENTSECRET": "",
+      "REDIRECTURI":"http://192.168.21.138:5001/callback",
+      "CLIENTSECRET": "PTm6Qm2MWB6rsleyVHInrar7RF1madI_TxsCCoRdpNS9lLCChI-A",
       "PUBLICKEY":["MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAES5X8XrfKdx9gYayFITc89wad4usrk0n2\n",
                   "7MjiGYvqalizeSWTHEpnd7oea9IQ8T5oJjMVH5cc0H5tFSKilFFeh//wngxIyny6\n",
                   "6+Vq5t5B0V0Ehy01+2ceEon2Y0XDkIKv"],
