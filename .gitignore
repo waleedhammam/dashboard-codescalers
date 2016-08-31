@@ -1,3 +1,8 @@
 node_modules/
+typings/
+/ClientApp/app/*.js.map
+/ClientApp/app/*.js
+/ClientApp/app/dash/*.js
+/ClientApp/app/dash/*.js.map
 .vscode/
 *.pyc
