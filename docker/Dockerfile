@@ -22,11 +22,10 @@ RUN git clone https://github.com/waleedhammam/dashboard-codescalers
 #installing requirements
 RUN echo 'installing python requirment'
 RUN cd dashboard-codescalers && pip3 install -r requirments.txt
-# RUN ls -l
-# RUN pip3 install -r requirments.txt
+
+
 
 RUN echo 'installing node stuff'
-# RUN curl -sL https://deb.nodesource.com/setup_6.x | -E bash -
 RUN apt-get install -y nodejs-legacy
 RUN apt-get install build-essential
 RUN apt-get -y install npm
@@ -38,4 +37,4 @@ ADD config.json dashboard-codescalers
 
 EXPOSE 5001
 
-CMD cd /dashboard-codescalers/ && python3 server.py
+CMD cd /dashboard-codescalers/ && python3 starter.py
