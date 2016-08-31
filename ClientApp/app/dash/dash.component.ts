@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild}        from '@angular/core';
+import { Component, OnInit, ViewChild, ApplicationRef}        from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { HTTP_PROVIDERS, Http }  from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
@@ -33,15 +33,18 @@ export class DashComponent implements OnInit {
   open() {
     this.modal.open();
   }
-
-  constructor(private dashService: DashService, private http: Http) {}
+  ref
+  constructor(ref: ApplicationRef, private dashService: DashService, private http: Http) {
+    this.ref = ref;
+  }
   token =  !(window.localStorage['jwt'] != "Unauthorized"? window.localStorage['jwt']: false);
   auth() {
-    this.dashService.startOAuthFlow( () => {this.token = false; delete this.aut; this.ngOnInit()} , this.callunauth.bind(this));
+    this.dashService.startOAuthFlow( () => {this.token = false; this.aut = false; this.ngOnInit()} , this.callunauth.bind(this));
   }
 
   callunauth(){
     this.aut = true;
+    this.ref.tick();
   }
   
   deAuth() {
@@ -52,7 +55,7 @@ export class DashComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEnvironments().then((Envs) => {
+    return this.getEnvironments().then((Envs) => {
       this.getAllData(Envs, this.timeoutTheDetails.bind(this, Envs))
     });
   }
@@ -64,7 +67,7 @@ export class DashComponent implements OnInit {
   }
 
   getAllData(Envs, Callback) {
-    Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback)
+    return Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback).then(() => {this.ref.tick();})
   }
 
   timeoutTheDetails(Envs) {

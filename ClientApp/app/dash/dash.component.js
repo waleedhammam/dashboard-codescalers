@@ -13,12 +13,13 @@ var http_1 = require('@angular/http');
 var dash_service_1 = require('./dash.service');
 var ng2_bs3_modal_1 = require('ng2-bs3-modal/ng2-bs3-modal');
 var DashComponent = (function () {
-    function DashComponent(dashService, http) {
+    function DashComponent(ref, dashService, http) {
         this.dashService = dashService;
         this.http = http;
         this.OverallStatus = {};
         this.aut = false;
         this.token = !(window.localStorage['jwt'] != "Unauthorized" ? window.localStorage['jwt'] : false);
+        this.ref = ref;
     }
     DashComponent.prototype.close = function () {
         this.modal.close();
@@ -29,11 +30,11 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.auth = function () {
         var _this = this;
-        this.dashService.startOAuthFlow(function () { _this.token = false; _this.ngOnInit(); }, this.callunauth.bind(this));
+        this.dashService.startOAuthFlow(function () { _this.token = false; _this.aut = false; _this.ngOnInit(); }, this.callunauth.bind(this));
     };
     DashComponent.prototype.callunauth = function () {
         this.aut = true;
-        //  location.reload();
+        this.ref.tick();
     };
     DashComponent.prototype.deAuth = function () {
         this.dashService.jwt = undefined;
@@ -43,7 +44,7 @@ var DashComponent = (function () {
     };
     DashComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.getEnvironments().then(function (Envs) {
+        return this.getEnvironments().then(function (Envs) {
             _this.getAllData(Envs, _this.timeoutTheDetails.bind(_this, Envs));
         });
     };
@@ -53,7 +54,8 @@ var DashComponent = (function () {
         this.modal.open();
     };
     DashComponent.prototype.getAllData = function (Envs, Callback) {
-        Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback);
+        var _this = this;
+        return Promise.all(Envs.map(this.getOverallStatus.bind(this))).then(Callback).then(function () { _this.ref.tick(); });
     };
     DashComponent.prototype.timeoutTheDetails = function (Envs) {
         setTimeout(this.getAllData.bind(this, Envs, this.timeoutTheDetails.bind(this, Envs)), 10000);
@@ -137,7 +139,7 @@ var DashComponent = (function () {
             providers: [dash_service_1.DashService, http_1.HTTP_PROVIDERS],
             directives: [ng2_bs3_modal_1.MODAL_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [dash_service_1.DashService, http_1.Http])
+        __metadata('design:paramtypes', [core_1.ApplicationRef, dash_service_1.DashService, http_1.Http])
     ], DashComponent);
     return DashComponent;
 }());
