@@ -3,7 +3,7 @@ if __name__ == "__main__":
     from time import sleep
     import multiprocessing, inotify.adapters
     try:
-        process = subprocess.Popen(["bash", "-c", """cd ClientApp; tsc -w"""])
+        process = subprocess.Popen(["bash", "-c", """cd ClientApp; ./node_modules/typescript/bin/tsc -w"""])
         p = subprocess.Popen(["python3", "server.py"])
 
         i = inotify.adapters.Inotify()
