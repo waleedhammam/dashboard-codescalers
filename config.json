@@ -1,16 +1,10 @@
 {
    "envs": [
         {
-        "name":"du-conv-3",
-        "url":"https://du-conv-3.demo.greenitglobe.com",
-        "login":"waleedhammam",
-        "password":"waleedhammam@codescalers"
-        },
-        {
-        "name":"du-conv-2",
-        "url":"https://du-conv-2.demo.greenitglobe.com",
-        "login":"waleed",
-        "password":"waleed@code"
+        "name":"",
+        "url":"",
+        "login":"",
+        "password":""
         }
     ],
     "apis":{
