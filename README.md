@@ -1,15 +1,15 @@
-##CodeScalers-Dashboard
+## CodeScalers-Dashboard
 Dashboard for **monitoring** environments states.
 Server is written in Python and Flask
 client app  in angular2
 
-###Application requirments:
+### Application requirments:
 - python3
 - pip3
 - nodejs
 - npm
 
-###Installation process:
+### Installation process:
 1- clone the repo:
 `git clone https://github.com/waleedhammam/dashboard-codescalers`
 
@@ -22,7 +22,7 @@ client app  in angular2
 
 (**note** you maybe need to do `sudo` for the third step if you are running on linux)
 
-###Running the application:
+### Running the application:
 add your configuration file as the template provided then run the server with
 `python3 server.py`
 
